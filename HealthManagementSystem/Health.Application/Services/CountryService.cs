@@ -1,7 +1,8 @@
-﻿using Management.Application.Repositories;
-using Management.Data.Models;
+﻿using Health.Application.Repositories;
+using Health.Domain.Models;
+using System.Collections.Generic;
 
-namespace Management.Application.Services
+namespace Health.Application.Services
 {
     public class CountryService : ICountryService
     {
@@ -15,11 +16,6 @@ namespace Management.Application.Services
         public List<Country> GetAllCountries()
         {
             return _countryRepository.GetAllCountries();
-        }
-
-        public Country GetCountry(string countryName) 
-        {
-            return _countryRepository.GetCountry(countryName);
         }
     }
 }

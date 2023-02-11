@@ -16,9 +16,15 @@ namespace HealthManagementSystem.Controllers
         }
 
         [HttpGet(Name = "GetWeatherForecast")]
-        public IEnumerable<Country> Get()
+        public IEnumerable<Country> GetCountries()
         {
             return _countryService.GetAllCountries();
+        }
+
+        [HttpGet("{countryName}")]
+        public Country GetCountry(string countryName)
+        {
+            return _countryService.GetCountry(countryName);
         }
     }
 }
