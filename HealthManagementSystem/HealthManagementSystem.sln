@@ -3,7 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33326.253
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HealthManagementSystem", "HealthManagementSystem\HealthManagementSystem.csproj", "{848D06B3-DBA3-47C5-BA68-BE49F5A969D7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HealthManagementSystem", "HealthManagementSystem\HealthManagementSystem.csproj", "{848D06B3-DBA3-47C5-BA68-BE49F5A969D7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Health.Domain", "Health.Domain\Health.Domain.csproj", "{F2E0B523-70EE-474D-AA97-ECE2E7472E5D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Health.Application", "Health.Application\Health.Application.csproj", "{BE5884BE-3C00-41F2-AEB1-8BAA098A7D40}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Health.Data", "Health.Data\Health.Data.csproj", "{E9460C6C-1295-46C3-9963-999BFEE712B7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +21,18 @@ Global
 		{848D06B3-DBA3-47C5-BA68-BE49F5A969D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{848D06B3-DBA3-47C5-BA68-BE49F5A969D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{848D06B3-DBA3-47C5-BA68-BE49F5A969D7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F2E0B523-70EE-474D-AA97-ECE2E7472E5D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F2E0B523-70EE-474D-AA97-ECE2E7472E5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F2E0B523-70EE-474D-AA97-ECE2E7472E5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F2E0B523-70EE-474D-AA97-ECE2E7472E5D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE5884BE-3C00-41F2-AEB1-8BAA098A7D40}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE5884BE-3C00-41F2-AEB1-8BAA098A7D40}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE5884BE-3C00-41F2-AEB1-8BAA098A7D40}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE5884BE-3C00-41F2-AEB1-8BAA098A7D40}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E9460C6C-1295-46C3-9963-999BFEE712B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E9460C6C-1295-46C3-9963-999BFEE712B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E9460C6C-1295-46C3-9963-999BFEE712B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E9460C6C-1295-46C3-9963-999BFEE712B7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
