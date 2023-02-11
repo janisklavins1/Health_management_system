@@ -1,5 +1,5 @@
-using Health.Application.Services;
-using Health.Domain.Models;
+using Management.Application.Services;
+using Management.Data.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HealthManagementSystem.Controllers

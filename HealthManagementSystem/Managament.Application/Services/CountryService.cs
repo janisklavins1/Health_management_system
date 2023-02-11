@@ -1,8 +1,7 @@
-﻿using Health.Application.Repositories;
-using Health.Domain.Models;
-using System.Collections.Generic;
+﻿using Management.Application.Repositories;
+using Management.Data.Models;
 
-namespace Health.Application.Services
+namespace Management.Application.Services
 {
     public class CountryService : ICountryService
     {

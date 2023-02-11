@@ -1,6 +1,8 @@
-using Health.Application.Repositories;
-using Health.Application.Services;
-using Health.Data.Repositories;
+using Management.Application.Repositories;
+using Management.Application.Services;
+using Management.Data.Context;
+using Management.Data.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +12,12 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+// Sql connection
+builder.Services.AddDbContext<HealthManagementDbContext>(
+        o => o.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer"))
+    );
+
 
 // Dependencies injection
 builder.Services.AddScoped<ICountryRepository, CountryRepository>();
