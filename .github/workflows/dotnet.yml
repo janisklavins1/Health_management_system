@@ -5,6 +5,8 @@ name: .NET CI
 
 on:
   push:
+    paths:
+      - '/HealthManagementSystem/**'
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
