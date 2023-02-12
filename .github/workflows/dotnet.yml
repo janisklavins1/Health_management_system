@@ -22,10 +22,10 @@ jobs:
         dotnet-version: 7.0.200-preview.22628.1
     - name: Restore dependencies
       run: dotnet restore
-      working-directory: /HealthManagementSystem
+      working-directory: Health_management_system/HealthManagementSystem/
     - name: Build
       run: dotnet build --no-restore
-      working-directory: /HealthManagementSystem
+      working-directory: Health_management_system/HealthManagementSystem/
     - name: Test
       run: dotnet test --no-build --verbosity normal
-      working-directory: /HealthManagementSystem
+      working-directory: Health_management_system/HealthManagementSystem/
