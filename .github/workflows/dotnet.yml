@@ -5,8 +5,6 @@ name: .NET CI
 
 on:
   push:
-    paths:
-      - '/HealthManagementSystem/**'
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
@@ -24,7 +22,10 @@ jobs:
         dotnet-version: 7.0.200-preview.22628.1
     - name: Restore dependencies
       run: dotnet restore
+      working-directory: /HealthManagementSystem
     - name: Build
       run: dotnet build --no-restore
+      working-directory: /HealthManagementSystem
     - name: Test
       run: dotnet test --no-build --verbosity normal
+      working-directory: /HealthManagementSystem
