@@ -1,0 +1,20 @@
+INSERT INTO [HealthManagement].[dbo].[Countries] (Name, CountryCode)
+VALUES 
+('Lithuania', 'LT'),
+('Russia', 'RU'),
+('Finland ', 'FI'),
+('France ', 'FR'),
+('Germany', 'DE'),
+('Greece', 'GR'),
+('Hungary', 'HU'),
+('Ireland', 'IE'),
+('Italy', 'IT'),
+('Luxembourg', 'LU'),
+('Poland', 'PL'),
+('Portugal', 'PT'),
+('Slovakia', 'SK'),
+('Slovenia', 'SI'),
+('Spain', 'ES'),
+('Sweden', 'SE'),
+('Estonia', 'EE'),
+(1, 'Latvia', 'LV')
