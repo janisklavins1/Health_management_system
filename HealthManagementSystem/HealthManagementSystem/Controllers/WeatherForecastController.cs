@@ -1,5 +1,8 @@
+using HealthManagementSystem.Dto;
+using Management.Application.Interfaces;
 using Management.Application.Services;
 using Management.Data.Models;
+using Management.Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HealthManagementSystem.Controllers

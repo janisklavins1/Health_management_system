@@ -12,5 +12,9 @@ namespace Management.Data.Context
         public DbSet<Country> Countries { get; set; }
         public DbSet<City> Cities { get; set; }
         public DbSet<Address> Addresses { get; set; }
+        public DbSet<PhoneNumberCountryCode> PhoneNumberCountryCodes { get; set; }
+        public DbSet<PhoneNumber> PhoneNumbers { get; set; }
+        public DbSet<Medication> Medications { get; set; }
+        public DbSet<Ingredient> Ingredients { get; set; }
     }
 }

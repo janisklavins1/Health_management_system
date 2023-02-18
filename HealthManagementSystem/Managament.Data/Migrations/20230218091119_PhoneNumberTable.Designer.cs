@@ -3,6 +3,7 @@ using Management.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Management.Data.Migrations
 {
     [DbContext(typeof(HealthManagementDbContext))]
-    partial class HealthManagementDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230218091119_PhoneNumberTable")]
+    partial class PhoneNumberTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -20,21 +23,6 @@ namespace Management.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("IngredientMedication", b =>
-                {
-                    b.Property<int>("IngredientsIngredientId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MedicationsMedicationId")
-                        .HasColumnType("int");
-
-                    b.HasKey("IngredientsIngredientId", "MedicationsMedicationId");
-
-                    b.HasIndex("MedicationsMedicationId");
-
-                    b.ToTable("IngredientMedication");
-                });
 
             modelBuilder.Entity("Management.Data.Models.Country", b =>
                 {
@@ -106,49 +94,6 @@ namespace Management.Data.Migrations
                     b.ToTable("Cities");
                 });
 
-            modelBuilder.Entity("Management.Domain.Models.Ingredient", b =>
-                {
-                    b.Property<int>("IngredientId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IngredientId"));
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("IngredientId");
-
-                    b.ToTable("Ingredients");
-                });
-
-            modelBuilder.Entity("Management.Domain.Models.Medication", b =>
-                {
-                    b.Property<int>("MedicationId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MedicationId"));
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("MedicationId");
-
-                    b.ToTable("Medications");
-                });
-
             modelBuilder.Entity("Management.Domain.Models.PhoneNumber", b =>
                 {
                     b.Property<int>("PhoneNumberId")
@@ -187,21 +132,6 @@ namespace Management.Data.Migrations
                     b.HasKey("PhoneNumberCountryCodeId");
 
                     b.ToTable("PhoneNumberCountryCodes");
-                });
-
-            modelBuilder.Entity("IngredientMedication", b =>
-                {
-                    b.HasOne("Management.Domain.Models.Ingredient", null)
-                        .WithMany()
-                        .HasForeignKey("IngredientsIngredientId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Management.Domain.Models.Medication", null)
-                        .WithMany()
-                        .HasForeignKey("MedicationsMedicationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Management.Domain.Models.Address", b =>

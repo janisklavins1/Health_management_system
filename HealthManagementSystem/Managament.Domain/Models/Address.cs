@@ -13,13 +13,13 @@ namespace Management.Domain.Models
         [Required]
         public int CityId { get; set; }
 
-        public virtual City? City { get; set; }
+        public City? City { get; set; }
 
         [ForeignKey("Country")]
         [Required]
         public int CountryId { get; set; }
 
-        public virtual Country? Country { get; set; }
+        public Country? Country { get; set; }
 
         public string HouseAddress { get; set; } = string.Empty;
 

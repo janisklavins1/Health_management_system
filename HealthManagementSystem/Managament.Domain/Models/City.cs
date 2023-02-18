@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Management.Domain.Models
 {
@@ -14,5 +9,6 @@ namespace Management.Domain.Models
 
         [Required]
         public string Name { get; set; } = string.Empty;
+        public ICollection<Address>? Address { get; set; }
     }
 }
