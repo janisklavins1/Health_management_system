@@ -5,6 +5,7 @@ namespace Management.Domain.Models
 {
     public class PhoneNumber
     {
+        [Key]
         public int PhoneNumberId { get; set; }
 
         public string Number { get; set; } = string.Empty;
@@ -14,5 +15,7 @@ namespace Management.Domain.Models
         public int PhoneNumberCountryCodeId { get; set; }
 
         public PhoneNumberCountryCode? PhoneNumberCountryCode { get; set; }
+
+        public ICollection<Person>? Persons { get; set; }
     }
 }

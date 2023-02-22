@@ -7,5 +7,6 @@ namespace Management.Application.Repositories
         List<Country> GetAllCountries();
 
         Country GetCountry(string countryName);
+        void AddCountry(Country country);
     }
 }

@@ -14,12 +14,23 @@ namespace Management.Application.Services
         }
         public void AddMedication(Medication medication)
         {
-            throw new NotImplementedException();
+
+            _medicationRepository.AddMedication(medication);
         }
 
-        public Medication GetMedication(int id)
+        public async Task<ICollection<Medication>> GetAllMedicationsAsync()
         {
-            throw new NotImplementedException();
+            return await _medicationRepository.GetAllMedicationsAsync();
+        }
+
+        public async Task<Medication> GetMedication(int id)
+        {
+            return await _medicationRepository.GetMedication(id);
+        }
+
+        public async Task EditMedicationAsync(Medication medication)
+        {
+            await _medicationRepository.EditMedicationAsync(medication);
         }
     }
 }

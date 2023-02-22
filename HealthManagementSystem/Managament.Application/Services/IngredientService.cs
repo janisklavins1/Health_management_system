@@ -12,14 +12,20 @@ namespace Management.Application.Services
         {
             _ingredientRepository = ingredientRepository;
         }
+
         public void AddIngredient(Ingredient ingredient)
         {
             _ingredientRepository.AddIngredient(ingredient);
         }
 
-        public ICollection<Ingredient> GetAllIngredients()
+        public async Task<ICollection<Ingredient>> GetAllIngredientsAsync()
         {
-            throw new NotImplementedException();
+            return await _ingredientRepository.GetAllIngredientsAsync();
+        }
+
+        public Ingredient GetIngredientByName(string name)
+        {
+            return _ingredientRepository.GetIngredientByName(name);
         }
     }
 }

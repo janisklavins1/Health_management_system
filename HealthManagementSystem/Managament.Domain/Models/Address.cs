@@ -25,5 +25,7 @@ namespace Management.Domain.Models
 
         [StringLength(10, ErrorMessage = "Max length is 10 symbols")]
         public string PostIndex { get; set; } = string.Empty;
+
+        public ICollection<Person>? Persons { get; set; }
     }
 }

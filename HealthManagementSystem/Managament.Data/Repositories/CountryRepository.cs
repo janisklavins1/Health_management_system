@@ -13,6 +13,11 @@ namespace Management.Data.Repositories
             _context = context;
         }
 
+        public void AddCountry(Country country)
+        {
+            _context.Countries.Add(country);
+        }
+
         public List<Country> GetAllCountries()
         {
             return _context.Countries.ToList();

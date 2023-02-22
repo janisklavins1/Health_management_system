@@ -9,7 +9,10 @@ namespace Management.Application.Interfaces
 {
     public interface IMedicationService
     {
-        Medication GetMedication(int id);
+        Task<Medication> GetMedication(int id);
+        Task<ICollection<Medication>> GetAllMedicationsAsync();
         void AddMedication(Medication medication);
+
+        Task EditMedicationAsync(Medication medication);
     }
 }

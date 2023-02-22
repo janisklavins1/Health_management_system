@@ -27,6 +27,9 @@ builder.Services.AddScoped<ICountryService, CountryService>();
 builder.Services.AddScoped<IIngredientRepository, IngredientRepository>();
 builder.Services.AddScoped<IIngredientService, IngredientService>();
 
+builder.Services.AddScoped<IMedicationRepository, MedicationRepository>();
+builder.Services.AddScoped<IMedicationService, MedicationService>();
+
 WebApplication app = builder.Build();
 
 // Configure the HTTP request pipeline.

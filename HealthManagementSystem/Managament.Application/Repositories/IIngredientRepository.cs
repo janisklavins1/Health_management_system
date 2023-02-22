@@ -4,7 +4,8 @@ namespace Management.Application.Repositories
 {
     public interface IIngredientRepository
     {
-        ICollection<Ingredient> GetAllIngredients();
+        Task<ICollection<Ingredient>> GetAllIngredientsAsync();
         void AddIngredient(Ingredient ingredient);
+        Ingredient GetIngredientByName(string name);
     }
 }

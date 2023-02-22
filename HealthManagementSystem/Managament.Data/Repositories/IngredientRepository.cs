@@ -1,6 +1,7 @@
 ﻿using Management.Application.Repositories;
 using Management.Data.Context;
 using Management.Domain.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Management.Data.Repositories
 {
@@ -18,9 +19,21 @@ namespace Management.Data.Repositories
             _context.SaveChanges();
         }
 
-        public ICollection<Ingredient> GetAllIngredients()
+        public async Task<ICollection<Ingredient>> GetAllIngredientsAsync()
         {
-           return  _context.Ingredients.ToList();
+           return await  _context.Ingredients.ToListAsync();
+        }
+
+        public Ingredient GetIngredientByName(string name)
+        {
+            var ingredient = _context.Ingredients.FirstOrDefault(x => x.Name == name);
+
+            if (ingredient != null)
+            {
+                return ingredient;
+            }
+
+            return null;
         }
     }
 }

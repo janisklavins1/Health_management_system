@@ -7,11 +7,8 @@ using System.Threading.Tasks;
 
 namespace Management.Application.Interfaces
 {
-    public interface IIngredientService
+    public interface IAddressService
     {
-        Task<ICollection<Ingredient>> GetAllIngredientsAsync();
-        void AddIngredient(Ingredient ingredient);
-
-        Ingredient GetIngredientByName(string name);
+        Task AddAddressAsync(Address address);
     }
 }
