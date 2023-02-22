@@ -9,10 +9,22 @@ namespace Management.Data.Context
         public HealthManagementDbContext(DbContextOptions<HealthManagementDbContext> options) : base(options)
         { }
 
-        //protected override void OnModelCreating(ModelBuilder modelBuilder)
-        //{
-        //    modelBuilder.Entity<Ingredient>().HasQueryFilter
-        //}
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.Entity<Person>()
+                .HasMany(x => x.Allergies)
+                .WithMany(x => x.Persons)
+                .UsingEntity<AllergyPerson>();
+
+            builder.Entity<AllergyPerson>()
+                .HasOne(x => x.Allergy)
+                .WithOne()
+                .OnDelete(DeleteBehavior.NoAction);
+            builder.Entity<AllergyPerson>()
+                .HasOne(x => x.Person)
+                .WithOne()
+                .OnDelete(DeleteBehavior.NoAction);
+        }
 
         public DbSet<Country> Countries { get; set; }
         public DbSet<City> Cities { get; set; }

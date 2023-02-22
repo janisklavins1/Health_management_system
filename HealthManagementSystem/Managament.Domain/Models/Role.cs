@@ -12,7 +12,7 @@ namespace Management.Domain.Models
         [Key]
         public int RoleId { get; set; }
 
-        [StringLength(10, ErrorMessage = "Title should be max 10 symbols long")]
+        [StringLength(10, ErrorMessage = "Role Title should be max 10 symbols long")]
         public string Title { get; set; } = string.Empty;
 
         public ICollection<Person>? Persons { get; set; }

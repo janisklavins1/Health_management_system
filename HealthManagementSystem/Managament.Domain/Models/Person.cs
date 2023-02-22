@@ -10,16 +10,17 @@ namespace Management.Domain.Models
 {
     public class Person
     {
+
         [Key]
         public int PersonId { get; set; }
 
-        [StringLength(100, ErrorMessage = "Title should be max 10 symbols long")]
+        [StringLength(100, ErrorMessage = "Name should be max 100 symbols long")]
         public string Name { get; set; } = string.Empty;
 
-        [StringLength(100, ErrorMessage = "Title should be max 10 symbols long")]
+        [StringLength(100, ErrorMessage = "Surname should be max 100 symbols long")]
         public string Surname { get; set; } = string.Empty;
 
-        [StringLength(100, ErrorMessage = "Title should be max 10 symbols long")]
+        [StringLength(20, ErrorMessage = "Gender should be max 20 symbols long")]
         public string Gender { get; set; } = string.Empty;
 
         public DateTime BirthDate { get; set; }
@@ -35,6 +36,8 @@ namespace Management.Domain.Models
         [ForeignKey("PhoneNumber")]
         public int PhoneNumberId { get; set; }
         public PhoneNumber? PhoneNumber { get; set;}
+
+        public ICollection<Allergy>? Allergies { get; set; }
 
     }
 }
