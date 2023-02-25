@@ -30,6 +30,9 @@ builder.Services.AddScoped<IIngredientService, IngredientService>();
 builder.Services.AddScoped<IMedicationRepository, MedicationRepository>();
 builder.Services.AddScoped<IMedicationService, MedicationService>();
 
+builder.Services.AddScoped<IAllergyPersonRepository, AllergyPersonRepository>();
+builder.Services.AddScoped<IAllergyPersonService, AllergyPersonService>();
+
 WebApplication app = builder.Build();
 
 // Configure the HTTP request pipeline.
