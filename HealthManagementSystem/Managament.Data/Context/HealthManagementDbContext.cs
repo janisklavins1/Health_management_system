@@ -35,5 +35,7 @@ namespace Management.Data.Context
         public DbSet<Ingredient> Ingredients { get; set; }
         public DbSet<Person> Persons { get; set; }
         public DbSet<Role> Roles { get; set; }
+        public DbSet<MedicalPractice> MedicalPractices { get; set; }
+        public DbSet<FamilyDoctor> FamilyDoctors { get; set; }      
     }
 }

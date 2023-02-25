@@ -27,5 +27,7 @@ namespace Management.Domain.Models
         public string PostIndex { get; set; } = string.Empty;
 
         public ICollection<Person>? Persons { get; set; }
+
+        public ICollection<Address>? Addresses { get; set; }
     }
 }

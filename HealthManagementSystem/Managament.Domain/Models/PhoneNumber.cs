@@ -17,5 +17,7 @@ namespace Management.Domain.Models
         public PhoneNumberCountryCode? PhoneNumberCountryCode { get; set; }
 
         public ICollection<Person>? Persons { get; set; }
+
+        public ICollection<MedicalPractice>? MedicalPractices { get; set; }
     }
 }
