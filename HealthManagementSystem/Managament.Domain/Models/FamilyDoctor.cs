@@ -24,5 +24,7 @@ namespace Management.Domain.Models
         public string Qualification { get; set; } = string.Empty;
 
         public DateTime JoiningDate { get; set; }
+
+        public ICollection<Person>? Persons { get; set; }
     }
 }

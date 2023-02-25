@@ -11,6 +11,7 @@ namespace Management.Data.Context
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            // AllergyPerson
             builder.Entity<Person>()
                 .HasMany(x => x.Allergies)
                 .WithMany(x => x.Persons)
@@ -21,6 +22,21 @@ namespace Management.Data.Context
                 .WithOne()
                 .OnDelete(DeleteBehavior.NoAction);
             builder.Entity<AllergyPerson>()
+                .HasOne(x => x.Person)
+                .WithOne()
+                .OnDelete(DeleteBehavior.NoAction);
+
+            // FamilyDoctorPerson
+            builder.Entity<Person>()
+                .HasMany(x => x.FamilyDoctors)
+                .WithMany(x => x.Persons)
+                .UsingEntity<FamilyDoctorPerson>();
+
+            builder.Entity<FamilyDoctorPerson>()
+                .HasOne(x => x.FamilyDoctor)
+                .WithOne()
+                .OnDelete(DeleteBehavior.NoAction);
+            builder.Entity<FamilyDoctorPerson>()
                 .HasOne(x => x.Person)
                 .WithOne()
                 .OnDelete(DeleteBehavior.NoAction);
@@ -36,6 +52,6 @@ namespace Management.Data.Context
         public DbSet<Person> Persons { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<MedicalPractice> MedicalPractices { get; set; }
-        public DbSet<FamilyDoctor> FamilyDoctors { get; set; }      
+        public DbSet<FamilyDoctor> FamilyDoctors { get; set; }
     }
 }

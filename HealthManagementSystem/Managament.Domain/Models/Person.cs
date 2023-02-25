@@ -39,5 +39,7 @@ namespace Management.Domain.Models
 
         public ICollection<Allergy>? Allergies { get; set; }
 
+        public ICollection<FamilyDoctor>? FamilyDoctors { get; set; }
+
     }
 }
