@@ -115,7 +115,7 @@ namespace Management.Data.Migrations
 
                     b.HasIndex("TypeOfAllergyId");
 
-                    b.ToTable("Allergy");
+                    b.ToTable("Allergies");
                 });
 
             modelBuilder.Entity("Management.Domain.Models.AllergyPerson", b =>
@@ -123,16 +123,13 @@ namespace Management.Data.Migrations
                     b.Property<int>("AllergyId")
                         .HasColumnType("int");
 
-                    b.Property<int>("PersonsPersonId")
+                    b.Property<int>("PersonId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("DateDiscovered")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("PersonId")
-                        .HasColumnType("int");
-
-                    b.HasKey("AllergyId", "PersonsPersonId");
+                    b.HasKey("AllergyId", "PersonId");
 
                     b.HasIndex("AllergyId")
                         .IsUnique();
@@ -140,9 +137,7 @@ namespace Management.Data.Migrations
                     b.HasIndex("PersonId")
                         .IsUnique();
 
-                    b.HasIndex("PersonsPersonId");
-
-                    b.ToTable("AllergyPerson");
+                    b.ToTable("AllergiesPerson");
                 });
 
             modelBuilder.Entity("Management.Domain.Models.City", b =>
@@ -198,19 +193,16 @@ namespace Management.Data.Migrations
                     b.Property<int>("FamilyDoctorId")
                         .HasColumnType("int");
 
-                    b.Property<int>("PersonsPersonId")
+                    b.Property<int>("PersonId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("EndingDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("PersonId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("StartingDate")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("FamilyDoctorId", "PersonsPersonId");
+                    b.HasKey("FamilyDoctorId", "PersonId");
 
                     b.HasIndex("FamilyDoctorId")
                         .IsUnique();
@@ -218,9 +210,7 @@ namespace Management.Data.Migrations
                     b.HasIndex("PersonId")
                         .IsUnique();
 
-                    b.HasIndex("PersonsPersonId");
-
-                    b.ToTable("FamilyDoctorPerson");
+                    b.ToTable("FamilyDoctorsPersons");
                 });
 
             modelBuilder.Entity("Management.Domain.Models.Ingredient", b =>
@@ -238,6 +228,32 @@ namespace Management.Data.Migrations
                     b.HasKey("IngredientId");
 
                     b.ToTable("Ingredients");
+                });
+
+            modelBuilder.Entity("Management.Domain.Models.MedicalHistory", b =>
+                {
+                    b.Property<int>("MedicalHistoryId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MedicalHistoryId"));
+
+                    b.Property<int>("MedicalServiceId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PersonId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("RegisteredDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("MedicalHistoryId");
+
+                    b.HasIndex("MedicalServiceId");
+
+                    b.HasIndex("PersonId");
+
+                    b.ToTable("MedicalHistories");
                 });
 
             modelBuilder.Entity("Management.Domain.Models.MedicalPractice", b =>
@@ -269,6 +285,23 @@ namespace Management.Data.Migrations
                     b.HasIndex("PhoneNumberId");
 
                     b.ToTable("MedicalPractices");
+                });
+
+            modelBuilder.Entity("Management.Domain.Models.MedicalService", b =>
+                {
+                    b.Property<int>("MedicalServiceId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MedicalServiceId"));
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("MedicalServiceId");
+
+                    b.ToTable("MedicalServices");
                 });
 
             modelBuilder.Entity("Management.Domain.Models.Medication", b =>
@@ -416,7 +449,7 @@ namespace Management.Data.Migrations
 
                     b.HasKey("TypeOfAllergyId");
 
-                    b.ToTable("TypeOfAllergy");
+                    b.ToTable("TypeOfAllergies");
                 });
 
             modelBuilder.Entity("IngredientMedication", b =>
@@ -482,12 +515,6 @@ namespace Management.Data.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("Management.Domain.Models.Person", null)
-                        .WithMany()
-                        .HasForeignKey("PersonsPersonId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Allergy");
 
                     b.Navigation("Person");
@@ -518,13 +545,26 @@ namespace Management.Data.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("Management.Domain.Models.Person", null)
-                        .WithMany()
-                        .HasForeignKey("PersonsPersonId")
+                    b.Navigation("FamilyDoctor");
+
+                    b.Navigation("Person");
+                });
+
+            modelBuilder.Entity("Management.Domain.Models.MedicalHistory", b =>
+                {
+                    b.HasOne("Management.Domain.Models.MedicalService", "MedicalService")
+                        .WithMany("MedicalHistories")
+                        .HasForeignKey("MedicalServiceId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("FamilyDoctor");
+                    b.HasOne("Management.Domain.Models.Person", "Person")
+                        .WithMany("MedicalHistories")
+                        .HasForeignKey("PersonId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("MedicalService");
 
                     b.Navigation("Person");
                 });
@@ -606,6 +646,16 @@ namespace Management.Data.Migrations
             modelBuilder.Entity("Management.Domain.Models.MedicalPractice", b =>
                 {
                     b.Navigation("FamilyDoctors");
+                });
+
+            modelBuilder.Entity("Management.Domain.Models.MedicalService", b =>
+                {
+                    b.Navigation("MedicalHistories");
+                });
+
+            modelBuilder.Entity("Management.Domain.Models.Person", b =>
+                {
+                    b.Navigation("MedicalHistories");
                 });
 
             modelBuilder.Entity("Management.Domain.Models.PhoneNumber", b =>
