@@ -41,5 +41,6 @@ namespace Management.Domain.Models
 
         public ICollection<FamilyDoctor>? FamilyDoctors { get; set; }
 
+        public ICollection<MedicalHistory>? MedicalHistories { get; set; }
     }
 }

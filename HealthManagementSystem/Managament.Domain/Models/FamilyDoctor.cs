@@ -26,5 +26,7 @@ namespace Management.Domain.Models
         public DateTime JoiningDate { get; set; }
 
         public ICollection<Person>? Persons { get; set; }
+
+        //public ICollection<MedicalHistory>? MedicalHistories { get; set; }
     }
 }

@@ -20,24 +20,6 @@ namespace HealthManagementSystem.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<ActionResult<AllergyPerson>> AddAllergyToPerson(AllergyPersonDto request)
         {
-            //if (request.Allergy == null || request.Person == null)
-            //{
-            //    return NotFound();
-            //}
-
-            //var allergy = new Allergy()
-            //{
-            //    Name = request.Allergy.Name
-            //};
-
-            //var person = new Person()
-            //{
-            //    Name = request.Person.Name,
-            //    Surname = request.Person.Surname,
-            //    Gender = request.Person.Gender,
-            //    BirthDate = request.Person.BirthDate
-            //};
-
             var allergyPerson = new AllergyPerson()
             {
                 AllergyId = request.AllergyId,

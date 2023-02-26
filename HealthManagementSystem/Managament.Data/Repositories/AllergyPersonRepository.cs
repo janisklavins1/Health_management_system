@@ -19,10 +19,21 @@ namespace Management.Data.Repositories
 
         public async Task AddAllergyToPerson(AllergyPerson allergyPerson)
         {
-            var person = await _context.Persons.FindAsync(allergyPerson.PersonId);
-            //var allergy = await _context.
+            var person = await _context.Persons.FindAsync(allergyPerson.PersonId) ??
+                throw new Exception($"Person with ID {allergyPerson.PersonId} not found.");
 
-            await _context.AddAsync(allergyPerson);
+            var allergy = await _context.Allergies.FindAsync(allergyPerson.AllergyId) ??
+                throw new Exception($"Allergy with ID {allergyPerson.AllergyId} not found.");
+
+
+            var allergyPersonObj = new AllergyPerson()
+            {
+                Allergy = allergy,
+                Person = person,
+                DateDiscovered = allergyPerson.DateDiscovered
+            };
+
+            await _context.AllergiesPerson.AddAsync(allergyPersonObj);
             await _context.SaveChangesAsync();
         }
 

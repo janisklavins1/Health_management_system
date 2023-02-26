@@ -40,6 +40,13 @@ namespace Management.Data.Context
                 .HasOne(x => x.Person)
                 .WithOne()
                 .OnDelete(DeleteBehavior.NoAction);
+
+            // MedicalHistory
+            //builder.Entity<Person>()
+            //    .HasMany(g => g.MedicalHistories)
+            //    .WithOne(x => x.Person)
+            //    .HasForeignKey(x => x.PersonId)
+            //    .OnDelete(DeleteBehavior.NoAction);
         }
 
         public DbSet<Country> Countries { get; set; }
@@ -53,5 +60,11 @@ namespace Management.Data.Context
         public DbSet<Role> Roles { get; set; }
         public DbSet<MedicalPractice> MedicalPractices { get; set; }
         public DbSet<FamilyDoctor> FamilyDoctors { get; set; }
+        public DbSet<FamilyDoctorPerson> FamilyDoctorsPersons { get; set; }
+        public DbSet<Allergy> Allergies { get; set; }
+        public DbSet<AllergyPerson> AllergiesPerson { get; set; }
+        public DbSet<MedicalService> MedicalServices { get; set; }
+        public DbSet<MedicalHistory> MedicalHistories { get; set; }
+        public DbSet<TypeOfAllergy> TypeOfAllergies { get; set; }
     }
 }
