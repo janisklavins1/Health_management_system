@@ -25,8 +25,8 @@ namespace Management.Domain.Models
 
         public DateTime JoiningDate { get; set; }
 
-        public ICollection<Person>? Persons { get; set; }
-
-        //public ICollection<MedicalHistory>? MedicalHistories { get; set; }
+        [ForeignKey("Person")]
+        public int? PersonId { get; set; }
+        public Person? Person { get; set; }
     }
 }

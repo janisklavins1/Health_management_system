@@ -4,6 +4,7 @@ using Management.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Management.Data.Migrations
 {
     [DbContext(typeof(HealthManagementDbContext))]
-    partial class HealthManagementDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230228180146_AddedFamilyDoctor")]
+    partial class AddedFamilyDoctor
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -193,61 +196,6 @@ namespace Management.Data.Migrations
                     b.ToTable("FamilyDoctors");
                 });
 
-            modelBuilder.Entity("Management.Domain.Models.Illness", b =>
-                {
-                    b.Property<int>("IllnessId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IllnessId"));
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.HasKey("IllnessId");
-
-                    b.ToTable("Illnesses");
-                });
-
-            modelBuilder.Entity("Management.Domain.Models.IllnessPerson", b =>
-                {
-                    b.Property<int>("IllnessId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PersonId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("DateDiscovered")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Prohibitions")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
-
-                    b.HasKey("IllnessId", "PersonId");
-
-                    b.HasIndex("IllnessId")
-                        .IsUnique();
-
-                    b.HasIndex("PersonId")
-                        .IsUnique();
-
-                    b.ToTable("IllnessesPersons");
-                });
-
             modelBuilder.Entity("Management.Domain.Models.Ingredient", b =>
                 {
                     b.Property<int>("IngredientId")
@@ -320,31 +268,6 @@ namespace Management.Data.Migrations
                     b.HasKey("MedicationId");
 
                     b.ToTable("Medications");
-                });
-
-            modelBuilder.Entity("Management.Domain.Models.MedicationPerson", b =>
-                {
-                    b.Property<int>("MedicationId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PersonId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("EndingDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("StartingDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("MedicationId", "PersonId");
-
-                    b.HasIndex("MedicationId")
-                        .IsUnique();
-
-                    b.HasIndex("PersonId")
-                        .IsUnique();
-
-                    b.ToTable("MedicationPersons");
                 });
 
             modelBuilder.Entity("Management.Domain.Models.Person", b =>
@@ -555,25 +478,6 @@ namespace Management.Data.Migrations
                     b.Navigation("Person");
                 });
 
-            modelBuilder.Entity("Management.Domain.Models.IllnessPerson", b =>
-                {
-                    b.HasOne("Management.Domain.Models.Illness", "Illness")
-                        .WithOne()
-                        .HasForeignKey("Management.Domain.Models.IllnessPerson", "IllnessId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("Management.Domain.Models.Person", "Person")
-                        .WithOne()
-                        .HasForeignKey("Management.Domain.Models.IllnessPerson", "PersonId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.Navigation("Illness");
-
-                    b.Navigation("Person");
-                });
-
             modelBuilder.Entity("Management.Domain.Models.MedicalPractice", b =>
                 {
                     b.HasOne("Management.Domain.Models.Address", "Address")
@@ -591,25 +495,6 @@ namespace Management.Data.Migrations
                     b.Navigation("Address");
 
                     b.Navigation("PhoneNumber");
-                });
-
-            modelBuilder.Entity("Management.Domain.Models.MedicationPerson", b =>
-                {
-                    b.HasOne("Management.Domain.Models.Medication", "Medication")
-                        .WithOne()
-                        .HasForeignKey("Management.Domain.Models.MedicationPerson", "MedicationId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("Management.Domain.Models.Person", "Person")
-                        .WithOne()
-                        .HasForeignKey("Management.Domain.Models.MedicationPerson", "PersonId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.Navigation("Medication");
-
-                    b.Navigation("Person");
                 });
 
             modelBuilder.Entity("Management.Domain.Models.Person", b =>

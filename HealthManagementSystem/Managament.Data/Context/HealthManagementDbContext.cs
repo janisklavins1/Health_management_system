@@ -26,27 +26,57 @@ namespace Management.Data.Context
                 .WithOne()
                 .OnDelete(DeleteBehavior.NoAction);
 
-            // FamilyDoctorPerson
-            builder.Entity<Person>()
-                .HasMany(x => x.FamilyDoctors)
-                .WithMany(x => x.Persons)
-                .UsingEntity<FamilyDoctorPerson>();
+            // FamilyDoctor
+            builder.Entity<FamilyDoctor>()
+                .HasOne(p => p.Person)
+                .WithMany(f => f.FamilyDoctors)
+                .OnDelete(DeleteBehavior.NoAction);
 
-            builder.Entity<FamilyDoctorPerson>()
-                .HasOne(x => x.FamilyDoctor)
+            // IllnessPerson
+            builder.Entity<Person>()
+                .HasMany(x => x.Illnesses)
+                .WithMany(x => x.Persons)
+                .UsingEntity<IllnessPerson>();
+            builder.Entity<IllnessPerson>()
+                .HasOne(x => x.Illness)
                 .WithOne()
                 .OnDelete(DeleteBehavior.NoAction);
-            builder.Entity<FamilyDoctorPerson>()
+            builder.Entity<IllnessPerson>()
                 .HasOne(x => x.Person)
                 .WithOne()
                 .OnDelete(DeleteBehavior.NoAction);
 
-            // MedicalHistory
-            //builder.Entity<Person>()
-            //    .HasMany(g => g.MedicalHistories)
-            //    .WithOne(x => x.Person)
-            //    .HasForeignKey(x => x.PersonId)
-            //    .OnDelete(DeleteBehavior.NoAction);
+            // MedicationPersons
+            builder.Entity<Person>()
+                .HasMany(x => x.Medications)
+                .WithMany(x => x.Persons)
+                .UsingEntity<MedicationPerson>();
+            builder.Entity<MedicationPerson>()
+                .HasOne(x => x.Medication)
+                .WithOne()
+                .OnDelete(DeleteBehavior.NoAction);
+            builder.Entity<MedicationPerson>()
+                .HasOne(x => x.Person)
+                .WithOne()
+                .OnDelete(DeleteBehavior.NoAction);
+
+            // VaccinationPerson
+            builder.Entity<Person>()
+                .HasMany(x => x.Vaccinations)
+                .WithMany(x => x.Persons)
+                .UsingEntity<VaccinationPerson>();
+            builder.Entity<VaccinationPerson>()
+                .HasOne(x => x.Vaccination)
+                .WithOne()
+                .OnDelete(DeleteBehavior.NoAction);
+            builder.Entity<VaccinationPerson>()
+                .HasOne(x => x.Person)
+                .WithOne()
+                .OnDelete(DeleteBehavior.NoAction);
+            builder.Entity<VaccinationPerson>()
+                .HasOne(x => x.MedicalPractice)
+                .WithOne()
+                .OnDelete(DeleteBehavior.NoAction);
         }
 
         public DbSet<Country> Countries { get; set; }
@@ -60,11 +90,11 @@ namespace Management.Data.Context
         public DbSet<Role> Roles { get; set; }
         public DbSet<MedicalPractice> MedicalPractices { get; set; }
         public DbSet<FamilyDoctor> FamilyDoctors { get; set; }
-        public DbSet<FamilyDoctorPerson> FamilyDoctorsPersons { get; set; }
         public DbSet<Allergy> Allergies { get; set; }
         public DbSet<AllergyPerson> AllergiesPerson { get; set; }
-        public DbSet<MedicalService> MedicalServices { get; set; }
-        public DbSet<MedicalHistory> MedicalHistories { get; set; }
         public DbSet<TypeOfAllergy> TypeOfAllergies { get; set; }
+        public DbSet<Illness> Illnesses { get; set; }
+        public DbSet<IllnessPerson> IllnessesPersons { get; set; }
+        public DbSet<MedicationPerson> MedicationPersons { get; set; }
     }
 }

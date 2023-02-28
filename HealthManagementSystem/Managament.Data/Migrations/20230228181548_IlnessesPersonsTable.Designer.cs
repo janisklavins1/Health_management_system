@@ -4,6 +4,7 @@ using Management.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Management.Data.Migrations
 {
     [DbContext(typeof(HealthManagementDbContext))]
-    partial class HealthManagementDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230228181548_IlnessesPersonsTable")]
+    partial class IlnessesPersonsTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -322,31 +325,6 @@ namespace Management.Data.Migrations
                     b.ToTable("Medications");
                 });
 
-            modelBuilder.Entity("Management.Domain.Models.MedicationPerson", b =>
-                {
-                    b.Property<int>("MedicationId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PersonId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("EndingDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("StartingDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("MedicationId", "PersonId");
-
-                    b.HasIndex("MedicationId")
-                        .IsUnique();
-
-                    b.HasIndex("PersonId")
-                        .IsUnique();
-
-                    b.ToTable("MedicationPersons");
-                });
-
             modelBuilder.Entity("Management.Domain.Models.Person", b =>
                 {
                     b.Property<int>("PersonId")
@@ -591,25 +569,6 @@ namespace Management.Data.Migrations
                     b.Navigation("Address");
 
                     b.Navigation("PhoneNumber");
-                });
-
-            modelBuilder.Entity("Management.Domain.Models.MedicationPerson", b =>
-                {
-                    b.HasOne("Management.Domain.Models.Medication", "Medication")
-                        .WithOne()
-                        .HasForeignKey("Management.Domain.Models.MedicationPerson", "MedicationId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("Management.Domain.Models.Person", "Person")
-                        .WithOne()
-                        .HasForeignKey("Management.Domain.Models.MedicationPerson", "PersonId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.Navigation("Medication");
-
-                    b.Navigation("Person");
                 });
 
             modelBuilder.Entity("Management.Domain.Models.Person", b =>

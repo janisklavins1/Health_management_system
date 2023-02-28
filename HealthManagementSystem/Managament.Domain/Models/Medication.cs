@@ -21,5 +21,6 @@ namespace Management.Domain.Models
         public string Description { get; set; } = string.Empty;
         public string Type { get; set; } = string.Empty;
         public virtual ICollection<Ingredient> Ingredients { get; set; }
+        public virtual ICollection<Person> Persons { get; set; }
     }
 }

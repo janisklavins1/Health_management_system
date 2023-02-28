@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Management.Domain.Models
 {
@@ -35,12 +30,15 @@ namespace Management.Domain.Models
 
         [ForeignKey("PhoneNumber")]
         public int PhoneNumberId { get; set; }
-        public PhoneNumber? PhoneNumber { get; set;}
+        public PhoneNumber? PhoneNumber { get; set; }
 
         public ICollection<Allergy>? Allergies { get; set; }
 
         public ICollection<FamilyDoctor>? FamilyDoctors { get; set; }
 
-        public ICollection<MedicalHistory>? MedicalHistories { get; set; }
+        public ICollection<Illness>? Illnesses { get; set; }
+        public ICollection<Medication>? Medications { get; set; }
+
+        public ICollection<Vaccination>? Vaccinations { get; set; }
     }
 }
