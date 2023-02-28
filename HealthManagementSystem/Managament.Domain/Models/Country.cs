@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Management.Domain.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace Management.Data.Models
 {
@@ -11,5 +12,6 @@ namespace Management.Data.Models
         public string Name { get; set; } = string.Empty;
         [Required]
         public string CountryCode { get; set; } = string.Empty;
+        public ICollection<Address>? Address { get; set; }
     }
 }

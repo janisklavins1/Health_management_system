@@ -12,9 +12,19 @@ namespace Management.Application.Services
             _countryRepository = countryRepository;
         }
 
+        public void AddCountry(Country country)
+        {
+            _countryRepository.AddCountry(country);
+        }
+
         public List<Country> GetAllCountries()
         {
             return _countryRepository.GetAllCountries();
+        }
+
+        public Country GetCountry(string countryName) 
+        {
+            return _countryRepository.GetCountry(countryName);
         }
     }
 }

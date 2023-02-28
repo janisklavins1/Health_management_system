@@ -4,6 +4,7 @@ using Management.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Management.Data.Migrations
 {
     [DbContext(typeof(HealthManagementDbContext))]
-    partial class HealthManagementDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230226152409_NewDatabase")]
+    partial class NewDatabase
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,21 +24,6 @@ namespace Management.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("DocumentLabResult", b =>
-                {
-                    b.Property<int>("DocumentsDocumentId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("LabResultsLabResultId")
-                        .HasColumnType("int");
-
-                    b.HasKey("DocumentsDocumentId", "LabResultsLabResultId");
-
-                    b.HasIndex("LabResultsLabResultId");
-
-                    b.ToTable("DocumentLabResult");
-                });
 
             modelBuilder.Entity("IngredientMedication", b =>
                 {
@@ -172,36 +160,6 @@ namespace Management.Data.Migrations
                     b.ToTable("Cities");
                 });
 
-            modelBuilder.Entity("Management.Domain.Models.Document", b =>
-                {
-                    b.Property<int>("DocumentId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DocumentId"));
-
-                    b.Property<DateTime>("DateCreated")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("FilePath")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
-
-                    b.HasKey("DocumentId");
-
-                    b.ToTable("Documents");
-                });
-
             modelBuilder.Entity("Management.Domain.Models.FamilyDoctor", b =>
                 {
                     b.Property<int>("FamilyDoctorId")
@@ -214,9 +172,6 @@ namespace Management.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<int>("MedicalPracticeId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("PersonId")
                         .HasColumnType("int");
 
                     b.Property<string>("PlaceOfEducation")
@@ -233,64 +188,32 @@ namespace Management.Data.Migrations
 
                     b.HasIndex("MedicalPracticeId");
 
-                    b.HasIndex("PersonId");
-
                     b.ToTable("FamilyDoctors");
                 });
 
-            modelBuilder.Entity("Management.Domain.Models.Illness", b =>
+            modelBuilder.Entity("Management.Domain.Models.FamilyDoctorPerson", b =>
                 {
-                    b.Property<int>("IllnessId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IllnessId"));
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.HasKey("IllnessId");
-
-                    b.ToTable("Illnesses");
-                });
-
-            modelBuilder.Entity("Management.Domain.Models.IllnessPerson", b =>
-                {
-                    b.Property<int>("IllnessId")
+                    b.Property<int>("FamilyDoctorId")
                         .HasColumnType("int");
 
                     b.Property<int>("PersonId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("DateDiscovered")
+                    b.Property<DateTime>("EndingDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Prohibitions")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                    b.Property<DateTime>("StartingDate")
+                        .HasColumnType("datetime2");
 
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                    b.HasKey("FamilyDoctorId", "PersonId");
 
-                    b.HasKey("IllnessId", "PersonId");
-
-                    b.HasIndex("IllnessId")
+                    b.HasIndex("FamilyDoctorId")
                         .IsUnique();
 
                     b.HasIndex("PersonId")
                         .IsUnique();
 
-                    b.ToTable("IllnessesPersons");
+                    b.ToTable("FamilyDoctorsPersons");
                 });
 
             modelBuilder.Entity("Management.Domain.Models.Ingredient", b =>
@@ -310,70 +233,30 @@ namespace Management.Data.Migrations
                     b.ToTable("Ingredients");
                 });
 
-            modelBuilder.Entity("Management.Domain.Models.LabResult", b =>
+            modelBuilder.Entity("Management.Domain.Models.MedicalHistory", b =>
                 {
-                    b.Property<int>("LabResultId")
+                    b.Property<int>("MedicalHistoryId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("LabResultId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MedicalHistoryId"));
 
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(1000)
-                        .HasColumnType("nvarchar(1000)");
+                    b.Property<int>("MedicalServiceId")
+                        .HasColumnType("int");
 
                     b.Property<int>("PersonId")
                         .HasColumnType("int");
 
-                    b.HasKey("LabResultId");
+                    b.Property<DateTime>("RegisteredDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("MedicalHistoryId");
+
+                    b.HasIndex("MedicalServiceId");
 
                     b.HasIndex("PersonId");
 
-                    b.ToTable("LabResults");
-                });
-
-            modelBuilder.Entity("Management.Domain.Models.LabResultStatus", b =>
-                {
-                    b.Property<int>("LabResultStatusId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("LabResultStatusId"));
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.HasKey("LabResultStatusId");
-
-                    b.ToTable("LabResultStatuses");
-                });
-
-            modelBuilder.Entity("Management.Domain.Models.LabResultStatusLabResult", b =>
-                {
-                    b.Property<int>("LabResultId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("LabResultStatusId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("LabResultId", "LabResultStatusId");
-
-                    b.HasIndex("LabResultId")
-                        .IsUnique();
-
-                    b.HasIndex("LabResultStatusId")
-                        .IsUnique();
-
-                    b.ToTable("LabResultStatusLabResults");
+                    b.ToTable("MedicalHistories");
                 });
 
             modelBuilder.Entity("Management.Domain.Models.MedicalPractice", b =>
@@ -407,6 +290,23 @@ namespace Management.Data.Migrations
                     b.ToTable("MedicalPractices");
                 });
 
+            modelBuilder.Entity("Management.Domain.Models.MedicalService", b =>
+                {
+                    b.Property<int>("MedicalServiceId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MedicalServiceId"));
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("MedicalServiceId");
+
+                    b.ToTable("MedicalServices");
+                });
+
             modelBuilder.Entity("Management.Domain.Models.Medication", b =>
                 {
                     b.Property<int>("MedicationId")
@@ -431,31 +331,6 @@ namespace Management.Data.Migrations
                     b.HasKey("MedicationId");
 
                     b.ToTable("Medications");
-                });
-
-            modelBuilder.Entity("Management.Domain.Models.MedicationPerson", b =>
-                {
-                    b.Property<int>("MedicationId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PersonId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("EndingDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("StartingDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("MedicationId", "PersonId");
-
-                    b.HasIndex("MedicationId")
-                        .IsUnique();
-
-                    b.HasIndex("PersonId")
-                        .IsUnique();
-
-                    b.ToTable("MedicationPersons");
                 });
 
             modelBuilder.Entity("Management.Domain.Models.Person", b =>
@@ -580,70 +455,6 @@ namespace Management.Data.Migrations
                     b.ToTable("TypeOfAllergies");
                 });
 
-            modelBuilder.Entity("Management.Domain.Models.Vaccination", b =>
-                {
-                    b.Property<int>("VaccinationId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("VaccinationId"));
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.HasKey("VaccinationId");
-
-                    b.ToTable("Vaccinations");
-                });
-
-            modelBuilder.Entity("Management.Domain.Models.VaccinationPerson", b =>
-                {
-                    b.Property<int>("PersonId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("VaccinationId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("EndingDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("MedicalPracticeId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("StartingDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("PersonId", "VaccinationId");
-
-                    b.HasIndex("MedicalPracticeId")
-                        .IsUnique();
-
-                    b.HasIndex("PersonId")
-                        .IsUnique();
-
-                    b.HasIndex("VaccinationId")
-                        .IsUnique();
-
-                    b.ToTable("VaccinationPersons");
-                });
-
-            modelBuilder.Entity("DocumentLabResult", b =>
-                {
-                    b.HasOne("Management.Domain.Models.Document", null)
-                        .WithMany()
-                        .HasForeignKey("DocumentsDocumentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Management.Domain.Models.LabResult", null)
-                        .WithMany()
-                        .HasForeignKey("LabResultsLabResultId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("IngredientMedication", b =>
                 {
                     b.HasOne("Management.Domain.Models.Ingredient", null)
@@ -720,63 +531,45 @@ namespace Management.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Management.Domain.Models.Person", "Person")
-                        .WithMany("FamilyDoctors")
-                        .HasForeignKey("PersonId")
-                        .OnDelete(DeleteBehavior.NoAction);
-
                     b.Navigation("MedicalPractice");
-
-                    b.Navigation("Person");
                 });
 
-            modelBuilder.Entity("Management.Domain.Models.IllnessPerson", b =>
+            modelBuilder.Entity("Management.Domain.Models.FamilyDoctorPerson", b =>
                 {
-                    b.HasOne("Management.Domain.Models.Illness", "Illness")
+                    b.HasOne("Management.Domain.Models.FamilyDoctor", "FamilyDoctor")
                         .WithOne()
-                        .HasForeignKey("Management.Domain.Models.IllnessPerson", "IllnessId")
+                        .HasForeignKey("Management.Domain.Models.FamilyDoctorPerson", "FamilyDoctorId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("Management.Domain.Models.Person", "Person")
                         .WithOne()
-                        .HasForeignKey("Management.Domain.Models.IllnessPerson", "PersonId")
+                        .HasForeignKey("Management.Domain.Models.FamilyDoctorPerson", "PersonId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.Navigation("Illness");
+                    b.Navigation("FamilyDoctor");
 
                     b.Navigation("Person");
                 });
 
-            modelBuilder.Entity("Management.Domain.Models.LabResult", b =>
+            modelBuilder.Entity("Management.Domain.Models.MedicalHistory", b =>
                 {
+                    b.HasOne("Management.Domain.Models.MedicalService", "MedicalService")
+                        .WithMany("MedicalHistories")
+                        .HasForeignKey("MedicalServiceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Management.Domain.Models.Person", "Person")
-                        .WithMany("LabResults")
+                        .WithMany("MedicalHistories")
                         .HasForeignKey("PersonId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("MedicalService");
+
                     b.Navigation("Person");
-                });
-
-            modelBuilder.Entity("Management.Domain.Models.LabResultStatusLabResult", b =>
-                {
-                    b.HasOne("Management.Domain.Models.LabResult", "LabResult")
-                        .WithOne()
-                        .HasForeignKey("Management.Domain.Models.LabResultStatusLabResult", "LabResultId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("Management.Domain.Models.LabResultStatus", "LabResultStatus")
-                        .WithOne()
-                        .HasForeignKey("Management.Domain.Models.LabResultStatusLabResult", "LabResultStatusId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.Navigation("LabResult");
-
-                    b.Navigation("LabResultStatus");
                 });
 
             modelBuilder.Entity("Management.Domain.Models.MedicalPractice", b =>
@@ -796,25 +589,6 @@ namespace Management.Data.Migrations
                     b.Navigation("Address");
 
                     b.Navigation("PhoneNumber");
-                });
-
-            modelBuilder.Entity("Management.Domain.Models.MedicationPerson", b =>
-                {
-                    b.HasOne("Management.Domain.Models.Medication", "Medication")
-                        .WithOne()
-                        .HasForeignKey("Management.Domain.Models.MedicationPerson", "MedicationId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("Management.Domain.Models.Person", "Person")
-                        .WithOne()
-                        .HasForeignKey("Management.Domain.Models.MedicationPerson", "PersonId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.Navigation("Medication");
-
-                    b.Navigation("Person");
                 });
 
             modelBuilder.Entity("Management.Domain.Models.Person", b =>
@@ -855,33 +629,6 @@ namespace Management.Data.Migrations
                     b.Navigation("PhoneNumberCountryCode");
                 });
 
-            modelBuilder.Entity("Management.Domain.Models.VaccinationPerson", b =>
-                {
-                    b.HasOne("Management.Domain.Models.MedicalPractice", "MedicalPractice")
-                        .WithOne()
-                        .HasForeignKey("Management.Domain.Models.VaccinationPerson", "MedicalPracticeId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("Management.Domain.Models.Person", "Person")
-                        .WithOne()
-                        .HasForeignKey("Management.Domain.Models.VaccinationPerson", "PersonId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("Management.Domain.Models.Vaccination", "Vaccination")
-                        .WithOne()
-                        .HasForeignKey("Management.Domain.Models.VaccinationPerson", "VaccinationId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.Navigation("MedicalPractice");
-
-                    b.Navigation("Person");
-
-                    b.Navigation("Vaccination");
-                });
-
             modelBuilder.Entity("Management.Data.Models.Country", b =>
                 {
                     b.Navigation("Address");
@@ -904,11 +651,14 @@ namespace Management.Data.Migrations
                     b.Navigation("FamilyDoctors");
                 });
 
+            modelBuilder.Entity("Management.Domain.Models.MedicalService", b =>
+                {
+                    b.Navigation("MedicalHistories");
+                });
+
             modelBuilder.Entity("Management.Domain.Models.Person", b =>
                 {
-                    b.Navigation("FamilyDoctors");
-
-                    b.Navigation("LabResults");
+                    b.Navigation("MedicalHistories");
                 });
 
             modelBuilder.Entity("Management.Domain.Models.PhoneNumber", b =>

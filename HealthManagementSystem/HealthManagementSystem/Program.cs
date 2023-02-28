@@ -1,3 +1,4 @@
+using Management.Application.Interfaces;
 using Management.Application.Repositories;
 using Management.Application.Services;
 using Management.Data.Context;
@@ -22,6 +23,15 @@ builder.Services.AddDbContext<HealthManagementDbContext>(
 // Dependencies injection
 builder.Services.AddScoped<ICountryRepository, CountryRepository>();
 builder.Services.AddScoped<ICountryService, CountryService>();
+
+builder.Services.AddScoped<IIngredientRepository, IngredientRepository>();
+builder.Services.AddScoped<IIngredientService, IngredientService>();
+
+builder.Services.AddScoped<IMedicationRepository, MedicationRepository>();
+builder.Services.AddScoped<IMedicationService, MedicationService>();
+
+builder.Services.AddScoped<IAllergyPersonRepository, AllergyPersonRepository>();
+builder.Services.AddScoped<IAllergyPersonService, AllergyPersonService>();
 
 WebApplication app = builder.Build();
 
