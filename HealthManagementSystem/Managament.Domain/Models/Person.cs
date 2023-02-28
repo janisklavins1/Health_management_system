@@ -40,5 +40,7 @@ namespace Management.Domain.Models
         public ICollection<Medication>? Medications { get; set; }
 
         public ICollection<Vaccination>? Vaccinations { get; set; }
+
+        public ICollection<LabResult>? LabResults { get; set; }
     }
 }

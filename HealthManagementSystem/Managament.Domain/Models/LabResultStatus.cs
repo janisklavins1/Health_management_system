@@ -2,14 +2,14 @@
 
 namespace Management.Domain.Models
 {
-    public class Vaccination
+    public class LabResultStatus
     {
         [Key]
-        public int VaccinationId { get; set; }
+        public int LabResultStatusId { get; set; }
 
         [StringLength(200, ErrorMessage = "Max 200 symbols long")]
         public string Name { get; set; } = string.Empty;
 
-        public ICollection<Person>? Persons { get; set; }
+        public virtual ICollection<LabResult>? LabResults { get; set; }
     }
 }

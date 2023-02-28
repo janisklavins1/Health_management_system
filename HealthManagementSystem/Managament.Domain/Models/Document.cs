@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Management.Domain.Models
 {
     public class Document
     {
+        public Document()
+        {
+            LabResults = new HashSet<LabResult>();
+        }
+
         [Key]
         public int DocumentId { get; set; }
 
@@ -21,6 +21,8 @@ namespace Management.Domain.Models
         [Required]
         public string FilePath { get; set; } = string.Empty;
 
-        
+        public DateTime DateCreated { get; set; }
+
+        public virtual ICollection<LabResult> LabResults { get; set; }
     }
 }

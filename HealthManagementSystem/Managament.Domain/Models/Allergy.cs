@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Management.Domain.Models
 {
@@ -18,7 +13,7 @@ namespace Management.Domain.Models
         public string Name { get; set; } = string.Empty;
 
         [ForeignKey("TypeOfAllergy")]
-        public int TypeOfAllergyId { get; set; } 
+        public int TypeOfAllergyId { get; set; }
         public TypeOfAllergy? TypeOfAllergies { get; set; }
 
         public ICollection<Person>? Persons { get; set; }
