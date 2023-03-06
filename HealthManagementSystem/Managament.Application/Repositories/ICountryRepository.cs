@@ -6,7 +6,7 @@ namespace Management.Application.Repositories
     {
         List<Country> GetAllCountries();
 
-        Country GetCountry(string countryName);
+        Task<Country> GetCountryByNameAsync(string countryName);
         void AddCountry(Country country);
     }
 }

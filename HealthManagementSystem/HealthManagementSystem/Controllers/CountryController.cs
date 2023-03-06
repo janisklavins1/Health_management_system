@@ -25,9 +25,9 @@ namespace HealthManagementSystem.Controllers
         }
 
         [HttpGet("{countryName}")]
-        public Country GetCountry(string countryName)
+        public async Task<Country> GetCountry(string countryName)
         {
-            return _countryService.GetCountry(countryName);
+            return await _countryService.GetCountryByNameAsync(countryName);
         }
     }
 }

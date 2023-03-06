@@ -19,7 +19,7 @@ namespace Management.Data.Repositories
 
         public async Task AddAddressAsync(Address address)
         {
-            _context.Addresses.Add(address);
+            await _context.Addresses.AddAsync(address);
             await _context.SaveChangesAsync();
         }
     }

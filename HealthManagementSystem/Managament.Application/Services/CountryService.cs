@@ -22,9 +22,9 @@ namespace Management.Application.Services
             return _countryRepository.GetAllCountries();
         }
 
-        public Country GetCountry(string countryName) 
+        public async Task<Country> GetCountryByNameAsync(string countryName) 
         {
-            return _countryRepository.GetCountry(countryName);
+            return await _countryRepository.GetCountryByNameAsync(countryName);
         }
     }
 }

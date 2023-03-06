@@ -2,8 +2,8 @@
 
 namespace Management.Application.Repositories
 {
-    public interface IAddressRepository
+    public interface IRoleRepository
     {
-        Task AddAddressAsync(Address address);
+        Task<Role> GetRoleByIdAsync(int roleId);
     }
 }

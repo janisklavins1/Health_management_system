@@ -2,8 +2,8 @@
 
 namespace Management.Application.Repositories
 {
-    public interface IAddressRepository
+    public interface ICityRepository
     {
-        Task AddAddressAsync(Address address);
+        Task<City> GetCityByNameAsync(string cityName);
     }
 }

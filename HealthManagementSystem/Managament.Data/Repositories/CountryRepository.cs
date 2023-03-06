@@ -1,6 +1,7 @@
 ﻿using Management.Application.Repositories;
 using Management.Data.Context;
 using Management.Data.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Management.Data.Repositories
 {
@@ -23,11 +24,9 @@ namespace Management.Data.Repositories
             return _context.Countries.ToList();
         }
 
-        public Country GetCountry(string countryName) 
+        public async Task<Country> GetCountryByNameAsync(string countryName) 
         {
-            var countryObject = _context.Countries.First(x => x.Name == countryName);
-
-            return countryObject;
+            return await _context.Countries.FirstAsync(x => x.Name == countryName);
         }
     }
 }
