@@ -19,18 +19,28 @@ VALUES
 ('Estonia', 'EE'),
 (1, 'Latvia', 'LV')
 
-  INSERT INTO [HealthManagement].[dbo].[TypeOfAllergy] (Name)
+  INSERT INTO [HealthManagement].[dbo].[TypeOfAllergies] (Name)
 VALUES 
 ('AllergyTypeTestValue')
 
-  INSERT INTO [HealthManagement].[dbo].[Allergy] (Name, TypeOfAllergyId)
+  INSERT INTO [HealthManagement].[dbo].[Allergies] (Name, TypeOfAllergyId)
 VALUES 
 ('TestAlergyy', 1)
+
+INSERT INTO [HealthManagement].[dbo].AllergiesPerson(AllergyId, PersonId, DateDiscovered)
+VALUES 
+(1, 1, '2023-02-25T17:47:49.687Z')
 
    INSERT INTO [HealthManagement].[dbo].[Cities] (Name)
 VALUES 
 ('Jelgava'),
-('Riga')
+('Riga'),
+('Liepaja'),
+('Ventspils'),
+('Daugavpils'),
+('Ozolnieki'),
+('Jurmala'),
+('Ogre')
 
      INSERT INTO [HealthManagement].[dbo].[Addresses] (CityId, CountryId, HouseAddress, PostIndex)
 VALUES 
