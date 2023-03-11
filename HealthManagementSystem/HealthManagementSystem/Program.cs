@@ -47,6 +47,9 @@ builder.Services.AddScoped<IMedicalPracticeRepository, MedicalPracticeRepository
 builder.Services.AddScoped<IFamilyDoctorRepository, FamilyDoctorRepository>();
 builder.Services.AddScoped<IFamilyDoctorService, FamilyDoctorService>();
 
+builder.Services.AddScoped<IMedicationPersonRepository, MedicationPersonRepository>();
+builder.Services.AddScoped<IMedicationPersonService, MedicationPersonService>();
+
 WebApplication app = builder.Build();
 
 // Configure the HTTP request pipeline.

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace Management.Domain.Models
 {
@@ -16,6 +17,8 @@ namespace Management.Domain.Models
         public string Description { get; set; } = string.Empty;
         public string Type { get; set; } = string.Empty;
         public virtual ICollection<Ingredient> Ingredients { get; set; }
+
+        [JsonIgnore]
         public virtual ICollection<Person> Persons { get; set; }
     }
 }
