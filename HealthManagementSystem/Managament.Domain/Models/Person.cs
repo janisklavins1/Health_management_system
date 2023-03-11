@@ -40,6 +40,7 @@ namespace Management.Domain.Models
         [JsonIgnore]
         public ICollection<Allergy>? Allergies { get; set; }
 
+        [JsonIgnore]
         public ICollection<FamilyDoctor>? FamilyDoctors { get; set; }
 
         [JsonIgnore]

@@ -36,15 +36,22 @@ namespace Management.Data.Repositories
 
         public async Task<Person> GetPersonByIdAsync(int id)
         {
-            var person = await _context.Persons.FindAsync(id) ??
-               throw new Exception($"Person with ID {id} not found.");
+            var person = await _context.Persons
+                .Include(x => x.Role)
+                .Include(x => x.PhoneNumber)
+                    .ThenInclude(y => y.PhoneNumberCountryCode)
+                .Include(x => x.Address)
+                    .ThenInclude(y => y.Country)
+                .Include(x => x.Address)
+                    .ThenInclude(y => y.City)
+                .FirstOrDefaultAsync() ?? throw new Exception($"Person with ID {id} not found.");
 
             return person;
         }
 
         public async Task EditPersonAsync(Person person)
         {
-            _context.Persons.Attach(person);
+            _ = _context.Persons.Attach(person) ?? throw new Exception($"Couldn't edit Person with ID {person.PersonId} .");
             await _context.SaveChangesAsync();
         }
 
