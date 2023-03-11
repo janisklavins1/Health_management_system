@@ -41,5 +41,18 @@ namespace Management.Data.Repositories
 
             return person;
         }
+
+        public async Task EditPersonAsync(Person person)
+        {
+            _context.Persons.Attach(person);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task DeletePersonAsync(int personId)
+        {
+            var deletePerson = await GetPersonByIdAsync(personId);
+            _ = _context.Persons.Remove(deletePerson) ?? throw new Exception($"Person with ID {personId} was not deleted.");
+            await _context.SaveChangesAsync();
+        }
     }
 }

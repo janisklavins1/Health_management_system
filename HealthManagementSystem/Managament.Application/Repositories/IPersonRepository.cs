@@ -7,5 +7,7 @@ namespace Management.Application.Repositories
         Task AddPersonAsync(Person person);
         Task<ICollection<Person>> GetAllPersonsAsync();
         Task<Person> GetPersonByIdAsync(int id);
+        Task EditPersonAsync(Person person);
+        Task DeletePersonAsync(int personId);
     }
 }

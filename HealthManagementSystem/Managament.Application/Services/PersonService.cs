@@ -1,4 +1,5 @@
 ﻿using HealthManagementSystem.Dto;
+using Management.Application.Dto;
 using Management.Application.Enums;
 using Management.Application.Interfaces;
 using Management.Application.Repositories;
@@ -57,6 +58,37 @@ namespace Management.Application.Services
             };
 
             await _personRepository.AddPersonAsync(person);
+        }
+
+        public async Task DeletePersonAsync(int personId)
+        {
+            await _personRepository.DeletePersonAsync(personId);
+        }
+
+        public async Task EditPersonAsync(int personId, PersonEditDto request)
+        {
+            var person = await _personRepository.GetPersonByIdAsync(personId);
+
+            var country = await _countryRepository.GetCountryByNameAsync(request.Country);
+            var city = await _cityRepository.GetCityByNameAsync(request.City);
+            var phoneNumberCode = await _phoneNumberCountryCodeRepository.GetPhoneNumberCountryCodeByCodeAsync(request.PhoneNumberCountryCode);
+
+            person.Name = request.Name;
+            person.Surname = request.Surname;
+            person.Address = new Address()
+            {
+                HouseAddress = request.HouseAddress,
+                PostIndex = request.PostIndex,
+                City = city,
+                Country = country
+            };
+            person.PhoneNumber = new PhoneNumber()
+            {
+                Number = request.PhoneNumber,
+                PhoneNumberCountryCode = phoneNumberCode
+            };
+
+            await _personRepository.EditPersonAsync(person);
         }
 
         public async Task<ICollection<Person>> GetAllPersonsAsync()
