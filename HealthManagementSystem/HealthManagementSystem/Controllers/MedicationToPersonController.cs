@@ -1,8 +1,6 @@
 ﻿using Management.Application.Dto;
 using Management.Application.Interfaces;
-using Management.Application.Services;
 using Management.Domain.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HealthManagementSystem.Controllers
@@ -27,10 +25,20 @@ namespace HealthManagementSystem.Controllers
             return Ok(request);
         }
 
-        //[HttpGet("{personId}")]
-        //public async Task<FamilyDoctor> GetFamilyDoctorById(int personId)
-        //{
+        [HttpGet("{personId}")]
+        public async Task<List<MedicationPersonListDto>> GetMedicationForPerson(int personId)
+        {
+            return await _medicationPersonService.GetAllPersonMedicationsAsync(personId);
+        }
 
-        //}
+        [HttpPut("{medicationPersonId}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> EditMedicationForPerson(int medicationPersonId, MedicationPersonEditDto request)
+        {
+            await _medicationPersonService.EditMedicationToPersonAsync(medicationPersonId, request);
+
+            return Ok(request);
+        }
     }
 }

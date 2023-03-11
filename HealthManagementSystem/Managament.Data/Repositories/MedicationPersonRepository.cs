@@ -1,4 +1,5 @@
-﻿using Management.Application.Repositories;
+﻿using Management.Application.Dto;
+using Management.Application.Repositories;
 using Management.Data.Context;
 using Management.Domain.Models;
 using Microsoft.EntityFrameworkCore;
@@ -22,35 +23,44 @@ namespace Management.Data.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task<List<MedicationPerson>> GetAllPersonMedicationsAsync(int personId)
+        public async Task EditMedicationToPersonAsync(MedicationPerson medicationPerson)
+        {
+            _ = _context.MedicationPersons.Attach(medicationPerson)
+                ?? throw new Exception($"Couldn't edit Persons Medication with ID {medicationPerson.PersonId} .");
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task<List<MedicationPersonListDto>> GetAllPersonMedicationsAsync(int personId)
         {
             var medicationPerson = await _context.MedicationPersons
-                .Include(x => x.Person)
-                    .ThenInclude(o => o.Role)
-                .Include(x => x.Person)
-                    .ThenInclude(o => o.PhoneNumber)
-                        .ThenInclude(y => y.PhoneNumberCountryCode)
-                .Include(x => x.Person)
-                    .ThenInclude(o => o.Address)
-                        .ThenInclude(y => y.Country)
-                .Include(x => x.Person)
-                    .ThenInclude(o => o.Address)
-                        .ThenInclude(y => y.City)
                 .Include(x => x.Medication)
                     .ThenInclude(o => o.Ingredients)
-                        .ThenInclude(y => y.Name)
                 .Where(x => x.PersonId == personId)
-                .ToListAsync() ?? throw new Exception($"Medication used by person with {personId} not found.");
+                .Select(x => new MedicationPersonListDto() 
+                {
+                    MedicationPersonId = x.MedicationPersonId,
+                    Medication = x.Medication,
+                    StartingDate = x.StartingDate,
+                    EndingDate = x.EndingDate,
+                    IsActive = x.IsActive
+
+                })
+                .ToListAsync();
+
+            if (medicationPerson.Count <= 0)
+            {
+                throw new Exception($"Medication used by person with {personId} not found.");
+            }
 
             return medicationPerson;
         }
 
-        public async Task RemoveMedicationFromPersonAsync(MedicationPerson medicationPerson)
+        public async Task<MedicationPerson> GetMedicationPersonByIdAsync(int medicationPersonId)
         {
-            _ = _context.MedicationPersons.Remove(medicationPerson) ??
-                throw new Exception($"Medication used by person with {medicationPerson.PersonId} was not deleted.");
+            var medicationPerson = await _context.MedicationPersons.FindAsync(medicationPersonId) ??
+                  throw new Exception($"MedicationPerson with Id {medicationPersonId} not found.");
 
-            await _context.SaveChangesAsync();
+            return medicationPerson;
         }
     }
 }

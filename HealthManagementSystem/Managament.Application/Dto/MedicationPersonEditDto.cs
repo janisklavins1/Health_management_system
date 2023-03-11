@@ -1,6 +1,6 @@
 ﻿namespace Management.Application.Dto
 {
-    public class MedicationPersonDto
+    public class MedicationPersonEditDto
     {
         public int MedicationId { get; set; }
         public int PersonId { get; set; }

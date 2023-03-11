@@ -2,11 +2,6 @@
 using Management.Application.Interfaces;
 using Management.Application.Repositories;
 using Management.Domain.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Management.Application.Services
 {
@@ -36,20 +31,28 @@ namespace Management.Application.Services
                 Medication = medication,
                 Person = person,
                 StartingDate = request.StartingDate,
-                EndingDate = request.EndingDate
+                EndingDate = request.EndingDate,
+                IsActive = request.IsActive
             };
 
             await _medicationPersonRepository.AddMedicationToPersonAsync(medicationPerson);
         }
 
-        public Task<List<MedicationPerson>> GetAllPersonMedicationsAsync(int personId)
+        public async Task EditMedicationToPersonAsync(int medicationPersonId, MedicationPersonEditDto request)
         {
-            throw new NotImplementedException();
+            var medicationPerson = await _medicationPersonRepository.GetMedicationPersonByIdAsync(medicationPersonId);
+            var medication = await _medicationRepository.GetMedication(request.MedicationId);
+
+            medicationPerson.Medication = medication;
+            medicationPerson.EndingDate = request.EndingDate;
+            medicationPerson.IsActive = request.IsActive;
+
+            await _medicationPersonRepository.EditMedicationToPersonAsync(medicationPerson);
         }
 
-        public Task RemoveMedicationFromPersonAsync(MedicationPerson medicationPerson)
+        public async Task<List<MedicationPersonListDto>> GetAllPersonMedicationsAsync(int personId)
         {
-            throw new NotImplementedException();
+            return await _medicationPersonRepository.GetAllPersonMedicationsAsync(personId);
         }
     }
 }

@@ -1,11 +1,13 @@
-﻿using Management.Domain.Models;
+﻿using Management.Application.Dto;
+using Management.Domain.Models;
 
 namespace Management.Application.Repositories
 {
     public interface IMedicationPersonRepository
     {
-        Task<List<MedicationPerson>> GetAllPersonMedicationsAsync(int personId);
+        Task<List<MedicationPersonListDto>> GetAllPersonMedicationsAsync(int personId);
         Task AddMedicationToPersonAsync(MedicationPerson medicationPerson);
-        Task RemoveMedicationFromPersonAsync(MedicationPerson medicationPerson);
+        Task EditMedicationToPersonAsync(MedicationPerson medicationPerson);
+        Task<MedicationPerson> GetMedicationPersonByIdAsync(int medicationPersonId);
     }
 }
