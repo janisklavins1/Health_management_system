@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace Management.Domain.Models
 {
@@ -9,6 +10,7 @@ namespace Management.Domain.Models
         public int FamilyDoctorId { get; set; }
 
         [ForeignKey("MedicalPractice")]
+        [JsonIgnore]
         public int MedicalPracticeId { get; set; }
         public MedicalPractice? MedicalPractice { get; set; }
 
@@ -21,7 +23,10 @@ namespace Management.Domain.Models
         public DateTime JoiningDate { get; set; }
 
         [ForeignKey("Person")]
+        [JsonIgnore]
         public int? PersonId { get; set; }
         public Person? Person { get; set; }
+
+        public string Status { get; set; } = string.Empty;
     }
 }

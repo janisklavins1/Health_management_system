@@ -22,6 +22,7 @@ namespace Management.Domain.Models
         [JsonIgnore]
         public ICollection<Person>? Persons { get; set; }
 
+        [JsonIgnore]
         public ICollection<MedicalPractice>? MedicalPractices { get; set; }
     }
 }

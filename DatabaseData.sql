@@ -63,3 +63,8 @@ VALUES
          INSERT INTO [HealthManagement].[dbo].[Persons] (Name, Surname, Gender, BirthDate, RoleId, AddressId, PhoneNumberId)
 VALUES 
 ('Janis', 'Klavins', 'Male', '2023-02-25T17:47:49.687Z', 1, 1, 1)
+
+  INSERT INTO [HealthManagement].[dbo].[MedicalPractices] (Name, WebsiteUrl, PhoneNumberId, AddressId)
+VALUES 
+('Sia Ilze Strele', 'www.ilzegimenesarsts.lv', 1, 1)
+

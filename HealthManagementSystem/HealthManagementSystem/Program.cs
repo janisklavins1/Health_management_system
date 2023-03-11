@@ -42,6 +42,11 @@ builder.Services.AddScoped<IPhoneNumberCountryCodeRepository, PhoneNumberCountry
 
 builder.Services.AddScoped<IRoleRepository, RoleRepository>();
 
+builder.Services.AddScoped<IMedicalPracticeRepository, MedicalPracticeRepository>();
+
+builder.Services.AddScoped<IFamilyDoctorRepository, FamilyDoctorRepository>();
+builder.Services.AddScoped<IFamilyDoctorService, FamilyDoctorService>();
+
 WebApplication app = builder.Build();
 
 // Configure the HTTP request pipeline.
