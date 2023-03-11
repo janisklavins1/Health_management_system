@@ -44,6 +44,7 @@ namespace Management.Data.Repositories
                     .ThenInclude(y => y.Country)
                 .Include(x => x.Address)
                     .ThenInclude(y => y.City)
+                .Where(x => x.PersonId == id)
                 .FirstOrDefaultAsync() ?? throw new Exception($"Person with ID {id} not found.");
 
             return person;
