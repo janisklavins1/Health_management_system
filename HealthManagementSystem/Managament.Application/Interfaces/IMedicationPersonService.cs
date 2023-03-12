@@ -5,7 +5,7 @@ namespace Management.Application.Interfaces
     public interface IMedicationPersonService
     {
         Task<List<MedicationPersonListDto>> GetAllPersonMedicationsAsync(int personId);
-        Task AddMedicationToPersonAsync(MedicationPersonDto medicationPerson);
-        Task EditMedicationToPersonAsync(int medicationPersonId, MedicationPersonEditDto medicationPerson);
+        Task AddMedicationToPersonAsync(MedicationPersonDto request);
+        Task EditMedicationToPersonAsync(int medicationPersonId, MedicationPersonEditDto request);
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace Management.Domain.Models
 {
@@ -13,9 +14,12 @@ namespace Management.Domain.Models
         public string Name { get; set; } = string.Empty;
 
         [ForeignKey("TypeOfAllergy")]
+        [JsonIgnore]
         public int TypeOfAllergyId { get; set; }
+        [JsonIgnore]
         public TypeOfAllergy? TypeOfAllergies { get; set; }
 
+        [JsonIgnore]
         public ICollection<Person>? Persons { get; set; }
     }
 }

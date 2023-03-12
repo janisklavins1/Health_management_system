@@ -5,6 +5,8 @@ namespace Management.Domain.Models
 {
     public class IllnessPerson
     {
+        [Key]
+        public int IllnessPersonId { get; set; }
         public int IllnessId { get; set; }
         [ForeignKey("IllnessId")]
         public virtual Illness? Illness { get; set; }

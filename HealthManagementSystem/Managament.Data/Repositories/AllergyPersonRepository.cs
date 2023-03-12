@@ -1,11 +1,8 @@
-﻿using Management.Application.Repositories;
+﻿using Management.Application.Dto;
+using Management.Application.Repositories;
 using Management.Data.Context;
 using Management.Domain.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace Management.Data.Repositories
 {
@@ -17,29 +14,49 @@ namespace Management.Data.Repositories
             _context = context;
         }
 
-        public async Task AddAllergyToPerson(AllergyPerson allergyPerson)
+        public async Task AddAllergyToPersonAsync(AllergyPerson allergyPerson)
         {
-            var person = await _context.Persons.FindAsync(allergyPerson.PersonId) ??
-                throw new Exception($"Person with ID {allergyPerson.PersonId} not found.");
+            _ = await _context.AllergiesPerson.AddAsync(allergyPerson) ??
+                throw new Exception($"Couldn't add Allergy to Person with ID {allergyPerson.PersonId}.");
 
-            var allergy = await _context.Allergies.FindAsync(allergyPerson.AllergyId) ??
-                throw new Exception($"Allergy with ID {allergyPerson.AllergyId} not found.");
-
-
-            var allergyPersonObj = new AllergyPerson()
-            {
-                Allergy = allergy,
-                Person = person,
-                DateDiscovered = allergyPerson.DateDiscovered
-            };
-
-            await _context.AllergiesPerson.AddAsync(allergyPersonObj);
             await _context.SaveChangesAsync();
         }
 
-        public Task<List<AllergyPerson>> GetAllPersonAllergies(int personId)
+        public async Task EditAllergyToPersonAsync(AllergyPerson allergyPerson)
         {
-            throw new NotImplementedException();
+            _ = _context.AllergiesPerson.Attach(allergyPerson)
+                ?? throw new Exception($"Couldn't edit Allergy with Persons ID {allergyPerson.PersonId} .");
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task<List<AllergyPersonListDto>> GetAllPersonAllergiesAsync(int personId)
+        {
+            var allergiesPerson = await _context.AllergiesPerson
+                .Include(x => x.Allergy)
+                    .ThenInclude(o => o.TypeOfAllergies)
+                .Where(x => x.PersonId == personId)
+                .Select(x => new AllergyPersonListDto()
+                {
+                    AllergyPersonId = x.AllergyPersonId,
+                    Allergy = x.Allergy,
+                    DateDiscovered = x.DateDiscovered
+                })
+                .ToListAsync();
+
+            if (allergiesPerson.Count <= 0)
+            {
+                throw new Exception($"Allergy used by person with Id {personId} not found.");
+            }
+
+            return allergiesPerson;
+        }
+
+        public async Task<AllergyPerson> GetAllergiesPersonByIdAsync(int allergyPersonId)
+        {
+            var allergyPerson = await _context.AllergiesPerson.FindAsync(allergyPersonId) ??
+                 throw new Exception($"MedicationPerson with Id {allergyPersonId} not found.");
+
+            return allergyPerson;
         }
     }
 }
