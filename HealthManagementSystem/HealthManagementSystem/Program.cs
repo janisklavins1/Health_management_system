@@ -57,6 +57,11 @@ builder.Services.AddScoped<IIllnessPersonService, IllnessPersonService>();
 
 builder.Services.AddScoped<IIllnessRepository, IllnessRepository>();
 
+builder.Services.AddScoped<IVaccinationPersonRepository, VaccinationPersonRepository>();
+builder.Services.AddScoped<IVaccinationPersonService, VaccinationPersonService>();
+
+builder.Services.AddScoped<IVaccinationRepository, VaccinationRepository>();
+
 WebApplication app = builder.Build();
 
 // Configure the HTTP request pipeline.
