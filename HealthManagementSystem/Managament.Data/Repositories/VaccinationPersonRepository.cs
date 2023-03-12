@@ -38,7 +38,6 @@ namespace Management.Data.Repositories
                 .Select(x => new VaccinationPersonListDto()
                 {
                     VaccinationPersonId = x.VaccinationPersonId,
-                    MedicalPractice = x.MedicalPractice,
                     Vaccination = x.Vaccination,
                     StartDate = x.StartingDate,
                     EndDate = x.EndingDate

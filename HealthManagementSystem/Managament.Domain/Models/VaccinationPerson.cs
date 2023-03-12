@@ -19,11 +19,6 @@ namespace Management.Domain.Models
         [ForeignKey("PersonId")]
         public virtual Person? Person { get; set; }
 
-        [JsonIgnore]
-        public int MedicalPracticeId { get; set; }
-        [ForeignKey("MedicalPracticeId")]
-        public virtual MedicalPractice? MedicalPractice { get; set; }
-
         public DateTime StartingDate { get; set; }
         public DateTime EndingDate { get; set; }
     }

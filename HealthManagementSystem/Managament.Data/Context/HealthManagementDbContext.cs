@@ -61,22 +61,18 @@ namespace Management.Data.Context
             //    .OnDelete(DeleteBehavior.NoAction);
 
             // VaccinationPerson
-            builder.Entity<Person>()
-                .HasMany(x => x.Vaccinations)
-                .WithMany(x => x.Persons)
-                .UsingEntity<VaccinationPerson>();
-            builder.Entity<VaccinationPerson>()
-                .HasOne(x => x.Vaccination)
-                .WithOne()
-                .OnDelete(DeleteBehavior.NoAction);
-            builder.Entity<VaccinationPerson>()
-                .HasOne(x => x.Person)
-                .WithOne()
-                .OnDelete(DeleteBehavior.NoAction);
-            builder.Entity<VaccinationPerson>()
-                .HasOne(x => x.MedicalPractice)
-                .WithOne()
-                .OnDelete(DeleteBehavior.NoAction);
+            //builder.Entity<Person>()
+            //    .HasMany(x => x.Vaccinations)
+            //    .WithMany(x => x.Persons)
+            //    .UsingEntity<VaccinationPerson>();
+            //builder.Entity<VaccinationPerson>()
+            //    .HasOne(x => x.Vaccination)
+            //    .WithOne()
+            //    .OnDelete(DeleteBehavior.NoAction);
+            //builder.Entity<VaccinationPerson>()
+            //    .HasOne(x => x.Person)
+            //    .WithOne()
+            //    .OnDelete(DeleteBehavior.NoAction);
 
             // LabResultStatusLabResult
             builder.Entity<LabResult>()

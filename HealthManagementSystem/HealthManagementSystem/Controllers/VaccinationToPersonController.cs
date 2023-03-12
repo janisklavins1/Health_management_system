@@ -23,7 +23,7 @@ namespace HealthManagementSystem.Controllers
             try
             {
                 await _vaccinationPersonService.AddVaccinationToPersonAsync(request);
-                return Ok();
+                return Ok(request);
             }
             catch (Exception error)
             {
