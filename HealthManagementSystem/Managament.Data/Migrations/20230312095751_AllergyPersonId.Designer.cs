@@ -4,6 +4,7 @@ using Management.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Management.Data.Migrations
 {
     [DbContext(typeof(HealthManagementDbContext))]
-    partial class HealthManagementDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230312095751_AllergyPersonId")]
+    partial class AllergyPersonId
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -50,21 +53,6 @@ namespace Management.Data.Migrations
                     b.HasIndex("LabResultsLabResultId");
 
                     b.ToTable("DocumentLabResult");
-                });
-
-            modelBuilder.Entity("IllnessPerson", b =>
-                {
-                    b.Property<int>("IllnessesIllnessId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PersonsPersonId")
-                        .HasColumnType("int");
-
-                    b.HasKey("IllnessesIllnessId", "PersonsPersonId");
-
-                    b.HasIndex("PersonsPersonId");
-
-                    b.ToTable("IllnessPerson");
                 });
 
             modelBuilder.Entity("IngredientMedication", b =>
@@ -301,20 +289,14 @@ namespace Management.Data.Migrations
 
             modelBuilder.Entity("Management.Domain.Models.IllnessPerson", b =>
                 {
-                    b.Property<int>("IllnessPersonId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IllnessPersonId"));
-
-                    b.Property<DateTime>("DateDiscovered")
-                        .HasColumnType("datetime2");
-
                     b.Property<int>("IllnessId")
                         .HasColumnType("int");
 
                     b.Property<int>("PersonId")
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("DateDiscovered")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Prohibitions")
                         .IsRequired()
@@ -326,11 +308,13 @@ namespace Management.Data.Migrations
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
-                    b.HasKey("IllnessPersonId");
+                    b.HasKey("IllnessId", "PersonId");
 
-                    b.HasIndex("IllnessId");
+                    b.HasIndex("IllnessId")
+                        .IsUnique();
 
-                    b.HasIndex("PersonId");
+                    b.HasIndex("PersonId")
+                        .IsUnique();
 
                     b.ToTable("IllnessesPersons");
                 });
@@ -723,21 +707,6 @@ namespace Management.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("IllnessPerson", b =>
-                {
-                    b.HasOne("Management.Domain.Models.Illness", null)
-                        .WithMany()
-                        .HasForeignKey("IllnessesIllnessId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Management.Domain.Models.Person", null)
-                        .WithMany()
-                        .HasForeignKey("PersonsPersonId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("IngredientMedication", b =>
                 {
                     b.HasOne("Management.Domain.Models.Ingredient", null)
@@ -827,15 +796,15 @@ namespace Management.Data.Migrations
             modelBuilder.Entity("Management.Domain.Models.IllnessPerson", b =>
                 {
                     b.HasOne("Management.Domain.Models.Illness", "Illness")
-                        .WithMany()
-                        .HasForeignKey("IllnessId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .WithOne()
+                        .HasForeignKey("Management.Domain.Models.IllnessPerson", "IllnessId")
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("Management.Domain.Models.Person", "Person")
-                        .WithMany()
-                        .HasForeignKey("PersonId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .WithOne()
+                        .HasForeignKey("Management.Domain.Models.IllnessPerson", "PersonId")
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Illness");

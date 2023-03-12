@@ -1,15 +1,13 @@
-﻿using Management.Domain.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Management.Application.Dto;
+using Management.Domain.Models;
 
 namespace Management.Application.Repositories
 {
     public interface IAllergyPersonRepository
     {
-        Task<List<AllergyPerson>> GetAllPersonAllergies(int personId);
-        Task AddAllergyToPerson(AllergyPerson allergyPerson);
+        Task<List<AllergyPersonListDto>> GetAllPersonAllergiesAsync(int personId);
+        Task AddAllergyToPersonAsync(AllergyPerson allergyPerson);
+        Task EditAllergyToPersonAsync(AllergyPerson allergyPerson);
+        Task<AllergyPerson> GetAllergiesPersonByIdAsync(int allergyPersonId);
     }
 }

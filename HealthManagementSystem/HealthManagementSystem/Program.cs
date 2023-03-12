@@ -50,6 +50,13 @@ builder.Services.AddScoped<IFamilyDoctorService, FamilyDoctorService>();
 builder.Services.AddScoped<IMedicationPersonRepository, MedicationPersonRepository>();
 builder.Services.AddScoped<IMedicationPersonService, MedicationPersonService>();
 
+builder.Services.AddScoped<IAllergyRepository, AllergyRepository>();
+
+builder.Services.AddScoped<IIllnessPersonRepository, IllnessPersonRepository>();
+builder.Services.AddScoped<IIllnessPersonService, IllnessPersonService>();
+
+builder.Services.AddScoped<IIllnessRepository, IllnessRepository>();
+
 WebApplication app = builder.Build();
 
 // Configure the HTTP request pipeline.

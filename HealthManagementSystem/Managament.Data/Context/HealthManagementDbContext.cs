@@ -12,19 +12,19 @@ namespace Management.Data.Context
         protected override void OnModelCreating(ModelBuilder builder)
         {
             // AllergyPerson
-            builder.Entity<Person>()
-                .HasMany(x => x.Allergies)
-                .WithMany(x => x.Persons)
-                .UsingEntity<AllergyPerson>();
+            //builder.Entity<Person>()
+            //    .HasMany(x => x.Allergies)
+            //    .WithMany(x => x.Persons)
+            //    .UsingEntity<AllergyPerson>();
 
-            builder.Entity<AllergyPerson>()
-                .HasOne(x => x.Allergy)
-                .WithOne()
-                .OnDelete(DeleteBehavior.NoAction);
-            builder.Entity<AllergyPerson>()
-                .HasOne(x => x.Person)
-                .WithOne()
-                .OnDelete(DeleteBehavior.NoAction);
+            //builder.Entity<AllergyPerson>()
+            //    .HasOne(x => x.Allergy)
+            //    .WithOne()
+            //    .OnDelete(DeleteBehavior.NoAction);
+            //builder.Entity<AllergyPerson>()
+            //    .HasOne(x => x.Person)
+            //    .WithOne()
+            //    .OnDelete(DeleteBehavior.NoAction);
 
             // FamilyDoctor
             builder.Entity<FamilyDoctor>()
@@ -33,18 +33,18 @@ namespace Management.Data.Context
                 .OnDelete(DeleteBehavior.NoAction);
 
             // IllnessPerson
-            builder.Entity<Person>()
-                .HasMany(x => x.Illnesses)
-                .WithMany(x => x.Persons)
-                .UsingEntity<IllnessPerson>();
-            builder.Entity<IllnessPerson>()
-                .HasOne(x => x.Illness)
-                .WithOne()
-                .OnDelete(DeleteBehavior.NoAction);
-            builder.Entity<IllnessPerson>()
-                .HasOne(x => x.Person)
-                .WithOne()
-                .OnDelete(DeleteBehavior.NoAction);
+            //builder.Entity<Person>()
+            //    .HasMany(x => x.Illnesses)
+            //    .WithMany(x => x.Persons)
+            //    .UsingEntity<IllnessPerson>();
+            //builder.Entity<IllnessPerson>()
+            //    .HasOne(x => x.Illness)
+            //    .WithOne()
+            //    .OnDelete(DeleteBehavior.NoAction);
+            //builder.Entity<IllnessPerson>()
+            //    .HasOne(x => x.Person)
+            //    .WithOne()
+            //    .OnDelete(DeleteBehavior.NoAction);
 
             // MedicationPersons
             //builder.Entity<Person>()

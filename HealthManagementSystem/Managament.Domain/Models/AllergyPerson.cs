@@ -1,9 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Management.Domain.Models
 {
     public class AllergyPerson
     {
+        [Key]
+        public int AllergyPersonId { get; set; }
         public int AllergyId { get; set; }
 
         [ForeignKey("AllergyId")]

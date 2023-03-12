@@ -1,15 +1,12 @@
-﻿using Management.Domain.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using HealthManagementSystem.Dto;
+using Management.Application.Dto;
 
 namespace Management.Application.Interfaces
 {
     public interface IAllergyPersonService
     {
-        Task<List<AllergyPerson>> GetAllPersonAllergies(int personId);
-        Task AddAllergyToPerson(AllergyPerson allergyPerson);
+        Task<List<AllergyPersonListDto>> GetAllPersonAllergiesAsync(int personId);
+        Task AddAllergyToPersonAsync(AllergyPersonDto request);
+        Task EditAllergyToPersonAsync(int allergyPersonId, AllergyPersonEditDto request);
     }
 }

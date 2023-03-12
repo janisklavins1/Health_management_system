@@ -26,6 +26,7 @@ VALUES
   INSERT INTO [HealthManagement].[dbo].[Allergies] (Name, TypeOfAllergyId)
 VALUES 
 ('TestAlergyy', 1)
+('Ziedputeksnu', 1)
 
 INSERT INTO [HealthManagement].[dbo].AllergiesPerson(AllergyId, PersonId, DateDiscovered)
 VALUES 
