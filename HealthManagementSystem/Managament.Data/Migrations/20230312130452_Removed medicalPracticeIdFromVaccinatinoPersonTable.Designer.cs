@@ -4,6 +4,7 @@ using Management.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Management.Data.Migrations
 {
     [DbContext(typeof(HealthManagementDbContext))]
-    partial class HealthManagementDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230312130452_Removed medicalPracticeIdFromVaccinatinoPersonTable")]
+    partial class RemovedmedicalPracticeIdFromVaccinatinoPersonTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -669,9 +672,11 @@ namespace Management.Data.Migrations
 
                     b.HasKey("VaccinationPersonId");
 
-                    b.HasIndex("PersonId");
+                    b.HasIndex("PersonId")
+                        .IsUnique();
 
-                    b.HasIndex("VaccinationId");
+                    b.HasIndex("VaccinationId")
+                        .IsUnique();
 
                     b.ToTable("VaccinationPersons");
                 });
@@ -689,21 +694,6 @@ namespace Management.Data.Migrations
                     b.HasIndex("PersonsPersonId");
 
                     b.ToTable("MedicationPerson");
-                });
-
-            modelBuilder.Entity("PersonVaccination", b =>
-                {
-                    b.Property<int>("PersonsPersonId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("VaccinationsVaccinationId")
-                        .HasColumnType("int");
-
-                    b.HasKey("PersonsPersonId", "VaccinationsVaccinationId");
-
-                    b.HasIndex("VaccinationsVaccinationId");
-
-                    b.ToTable("PersonVaccination");
                 });
 
             modelBuilder.Entity("AllergyPerson", b =>
@@ -965,15 +955,15 @@ namespace Management.Data.Migrations
             modelBuilder.Entity("Management.Domain.Models.VaccinationPerson", b =>
                 {
                     b.HasOne("Management.Domain.Models.Person", "Person")
-                        .WithMany()
-                        .HasForeignKey("PersonId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .WithOne()
+                        .HasForeignKey("Management.Domain.Models.VaccinationPerson", "PersonId")
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("Management.Domain.Models.Vaccination", "Vaccination")
-                        .WithMany()
-                        .HasForeignKey("VaccinationId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .WithOne()
+                        .HasForeignKey("Management.Domain.Models.VaccinationPerson", "VaccinationId")
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Person");
@@ -992,21 +982,6 @@ namespace Management.Data.Migrations
                     b.HasOne("Management.Domain.Models.Person", null)
                         .WithMany()
                         .HasForeignKey("PersonsPersonId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("PersonVaccination", b =>
-                {
-                    b.HasOne("Management.Domain.Models.Person", null)
-                        .WithMany()
-                        .HasForeignKey("PersonsPersonId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Management.Domain.Models.Vaccination", null)
-                        .WithMany()
-                        .HasForeignKey("VaccinationsVaccinationId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
