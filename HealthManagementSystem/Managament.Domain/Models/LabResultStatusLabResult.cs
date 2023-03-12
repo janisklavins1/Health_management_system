@@ -1,9 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Management.Domain.Models
 {
     public class LabResultStatusLabResult
     {
+        [Key]
+        public int LabResultStatusLabResultId { get; set; }
+
         public int LabResultId { get; set; }
         [ForeignKey("LabResultId")]
         public virtual LabResult? LabResult { get; set; }
