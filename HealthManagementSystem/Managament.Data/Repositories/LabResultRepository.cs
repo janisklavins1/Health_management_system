@@ -15,7 +15,7 @@ namespace Management.Data.Repositories
             _context = context;
         }
 
-        public async Task AddDocumentToLabResult(LabResult labResult)
+        public async Task AddDocumentToLabResultAsync(LabResult labResult)
         {
             _ = _context.LabResults.Attach(labResult)
                 ?? throw new Exception($"Couldn't add new Document with ID {labResult.Documents.Last().DocumentId} .");

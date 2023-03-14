@@ -23,7 +23,7 @@ namespace Management.Data.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task<ICollection<LabResultStatusDto>> GetLabResultStatuses(int labResultId)
+        public async Task<ICollection<LabResultStatusDto>> GetLabResultStatusesAsync(int labResultId)
         {
             var labResultStatusLabResults = await _context.LabResultStatusLabResults
                     .Include(x => x.LabResultStatus)

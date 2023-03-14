@@ -1,18 +1,14 @@
-﻿using Management.Domain.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using HealthManagementSystem.Dto;
+using Management.Domain.Models;
 
 namespace Management.Application.Interfaces
 {
     public interface IMedicationService
     {
-        Task<Medication> GetMedication(int id);
+        Task<Medication> GetMedicationAsync(int id);
         Task<ICollection<Medication>> GetAllMedicationsAsync();
-        void AddMedication(Medication medication);
+        Task AddMedicationAsync(MedicationDto medication);
 
-        Task EditMedicationAsync(Medication medication);
+        Task EditMedicationAsync(int id, MedicationDto request);
     }
 }

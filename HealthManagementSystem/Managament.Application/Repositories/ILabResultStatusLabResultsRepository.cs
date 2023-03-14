@@ -6,6 +6,6 @@ namespace Management.Application.Repositories
     public interface ILabResultStatusLabResultsRepository
     {
         Task AddLabResultsStatusToLabResultAsync(LabResultStatusLabResult labResultStatusLabResult);
-        Task<ICollection<LabResultStatusDto>> GetLabResultStatuses(int labResultId);
+        Task<ICollection<LabResultStatusDto>> GetLabResultStatusesAsync(int labResultId);
     }
 }

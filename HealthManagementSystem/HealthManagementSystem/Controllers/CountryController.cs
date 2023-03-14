@@ -1,8 +1,5 @@
-using HealthManagementSystem.Dto;
-using Management.Application.Interfaces;
 using Management.Application.Services;
 using Management.Data.Models;
-using Management.Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HealthManagementSystem.Controllers
@@ -18,16 +15,32 @@ namespace HealthManagementSystem.Controllers
             _countryService = countryService;
         }
 
-        [HttpGet(Name = "GetWeatherForecast")]
-        public IEnumerable<Country> GetCountries()
+        [HttpGet]
+        public async Task<ActionResult<Country>> GetCountries()
         {
-            return _countryService.GetAllCountries();
+            try
+            {
+                return Ok(await _countryService.GetAllCountriesAsync());
+            }
+            catch (Exception error)
+            {
+                return BadRequest(error);
+            }
+
         }
 
         [HttpGet("{countryName}")]
-        public async Task<Country> GetCountry(string countryName)
+        public async Task<ActionResult<Country>> GetCountry(string countryName)
         {
-            return await _countryService.GetCountryByNameAsync(countryName);
+            try
+            {
+                return Ok(await _countryService.GetCountryByNameAsync(countryName));
+
+            }
+            catch (Exception error)
+            {
+                return BadRequest(error);
+            }
         }
     }
 }

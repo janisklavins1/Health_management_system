@@ -14,19 +14,30 @@ namespace Management.Data.Repositories
             _context = context;
         }
 
-        public void AddCountry(Country country)
+        public async Task AddCountryAsync(Country country)
         {
-            _context.Countries.Add(country);
+            _ = await _context.Countries.AddAsync(country) ??
+                throw new Exception($"Couldn't add Country with Name {country.Name}.");
+
+            await _context.SaveChangesAsync();
         }
 
-        public List<Country> GetAllCountries()
+        public async Task<List<Country>> GetAllCountriesAsync()
         {
-            return _context.Countries.ToList();
+            var countries = await _context.Countries.ToListAsync();
+
+            if (countries.Count <= 0)
+            {
+                throw new Exception($"No Countries to display");
+            }
+
+            return countries;
         }
 
-        public async Task<Country> GetCountryByNameAsync(string countryName) 
+        public async Task<Country> GetCountryByNameAsync(string countryName)
         {
-            return await _context.Countries.FirstAsync(x => x.Name == countryName);
+            return await _context.Countries.FirstAsync(x => x.Name == countryName)
+                ?? throw new Exception($"County with Name {countryName} not found."); ;
         }
     }
 }

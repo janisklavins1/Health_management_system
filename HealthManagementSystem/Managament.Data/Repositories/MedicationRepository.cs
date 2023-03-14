@@ -1,5 +1,6 @@
 ﻿using Management.Application.Repositories;
 using Management.Data.Context;
+using Management.Data.Migrations;
 using Management.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,10 +13,12 @@ namespace Management.Data.Repositories
         {
             _context = context;
         }
-        public void AddMedication(Medication medication)
+        public async Task AddMedicationAsync(Medication medication)
         {
-            _context.Medications.Add(medication);
-            _context.SaveChanges();
+            _ = await _context.Medications.AddAsync(medication) ??
+                throw new Exception($"Couldn't add Medication with Name {medication.Name}.");
+
+            await _context.SaveChangesAsync();
         }
 
         public async Task<ICollection<Medication>> GetAllMedicationsAsync()
@@ -24,10 +27,15 @@ namespace Management.Data.Repositories
                 .Include(x => x.Ingredients)
                 .ToListAsync();
 
+            if (medication.Count <= 0)
+            {
+                throw new Exception($"Medications not found.");
+            }
+
             return medication;
         }
 
-        public async Task<Medication> GetMedication(int id)
+        public async Task<Medication> GetMedicationAsync(int id)
         {
             var medication = await _context.Medications
                 .Include(x => x.Ingredients)
@@ -39,7 +47,8 @@ namespace Management.Data.Repositories
 
         public async Task EditMedicationAsync(Medication medication)
         {
-            _context.Medications.Attach(medication);
+            _ = _context.Medications.Attach(medication) 
+                ?? throw new Exception($"Couldn't edit Medication with ID {medication.MedicationId} not found."); ;
             await _context.SaveChangesAsync();
         }
     }

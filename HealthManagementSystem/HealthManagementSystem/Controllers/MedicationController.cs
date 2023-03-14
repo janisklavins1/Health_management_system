@@ -2,7 +2,6 @@
 using Management.Application.Interfaces;
 using Management.Domain.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace HealthManagementSystem.Controllers
 {
@@ -20,42 +19,32 @@ namespace HealthManagementSystem.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<Medication>> GetAllMedicationsAsync()
+        public async Task<ActionResult<List<Medication>>> GetAllMedicationsAsync()
         {
-            return await _medicationService.GetAllMedicationsAsync();
+            try
+            {
+                return Ok(await _medicationService.GetAllMedicationsAsync());
+            }
+            catch (Exception error)
+            {
+                return BadRequest(error);
+            }
+
         }
 
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
-        public ActionResult<Medication> AddMedication(MedicationDto request)
+        public async Task<ActionResult<Medication>> AddMedication(MedicationDto request)
         {
-            var ingredientsCollection = new List<Ingredient>();
-
-            foreach (var item in request.Ingredients)
+            try
             {
-                var foundIngredient = _ingredientService.GetIngredientByName(item.Name);
-
-                if (foundIngredient != null)
-                {
-                    ingredientsCollection.Add(foundIngredient);
-                }
-                else
-                {
-                    ingredientsCollection.Add(new Ingredient() { Name = item.Name });
-                }
+                await _medicationService.AddMedicationAsync(request);
+                return Ok(request);
             }
-
-            var newMedication = new Medication()
+            catch (Exception error)
             {
-                Name = request.Name,
-                Description = request.Description,
-                Type = request.Type,
-                Ingredients = ingredientsCollection
-            };
-
-            _medicationService.AddMedication(newMedication);
-
-            return Ok(newMedication.MedicationId);
+                return BadRequest(error);
+            }
         }
 
         [HttpPut("{id}")]
@@ -63,61 +52,15 @@ namespace HealthManagementSystem.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<Medication>> EditMedication(int id, MedicationDto request)
         {
-            var ingredientsCollection = new List<Ingredient>();
-
-            foreach (var item in request.Ingredients)
+            try
             {
-                var foundIngredient = _ingredientService.GetIngredientByName(item.Name);
-
-                if (foundIngredient != null)
-                {
-                    ingredientsCollection.Add(foundIngredient);
-                }
-                else
-                {
-                    ingredientsCollection.Add(new Ingredient() { Name = item.Name });
-                }
+                await _medicationService.EditMedicationAsync(id, request);
+                return Ok(request);
             }
-
-            var editMedicine = await _medicationService.GetMedication(id);
-            if (editMedicine == null)
+            catch (Exception error)
             {
-                return NotFound();
+                return BadRequest(error);
             }
-
-            //if (id != editMedicine.MedicationId)
-            //{
-            //    return BadRequest();
-            //}
-            editMedicine.Name = request.Name;
-            editMedicine.Description = request.Description;
-            editMedicine.Type = request.Type;
-            editMedicine.Ingredients = ingredientsCollection;
-
-            await _medicationService.EditMedicationAsync(editMedicine);
-
-            return NoContent();
         }
-
-
-        //[HttpGet]
-        //public async Task<IEnumerable<Ingredient>> GetAllIngredientsAsync()
-        //{
-        //    return await _ingredientService.GetAllIngredientsAsync();
-        //}
-
-        //[HttpPost]
-        //[ProducesResponseType(StatusCodes.Status201Created)]
-        //public ActionResult<Country> AddIngredient(IngredientDto request)
-        //{
-        //    var newIngredient = new Ingredient()
-        //    {
-        //        Name = request.Name
-        //    };
-
-        //    _ingredientService.AddIngredient(newIngredient);
-
-        //    return Ok(newIngredient.IngredientId);
-        //}
     }
 }

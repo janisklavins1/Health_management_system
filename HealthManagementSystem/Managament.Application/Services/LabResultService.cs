@@ -28,7 +28,7 @@ namespace Management.Application.Services
             _documentRepository = documentRepository;
         }
 
-        public async Task AddDocumentToLabResult(int labResultId, List<DocumentDto> request)
+        public async Task AddDocumentToLabResultAsync(int labResultId, List<DocumentDto> request)
         {
             var labResult = await _labResultRepository.GetLabResultAsync(labResultId);
             foreach (var document in request)
@@ -43,7 +43,7 @@ namespace Management.Application.Services
                 labResult.Documents.Add(newDocument);
             }
 
-            await _labResultRepository.AddDocumentToLabResult(labResult);
+            await _labResultRepository.AddDocumentToLabResultAsync(labResult);
         }
 
         public async Task AddLabResultAsync(LabResultDto request)
@@ -88,13 +88,13 @@ namespace Management.Application.Services
             await _labResultRepository.DeleteLabResultAsync(labResultId);
         }
 
-        public async Task<List<LabResultListDto>> GetLabResultsForPerson(int personId)
+        public async Task<List<LabResultListDto>> GetLabResultsForPersonAsync(int personId)
         {
             var labResults = await _labResultRepository.GetLabResultsForPersonAsync(personId);
 
             foreach (var item in labResults)
             {
-                item.LabResultStatuses = await _labResultStatusLabResultsRepository.GetLabResultStatuses(item.LabResultId);
+                item.LabResultStatuses = await _labResultStatusLabResultsRepository.GetLabResultStatusesAsync(item.LabResultId);
             }
 
             return labResults;

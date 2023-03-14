@@ -6,6 +6,6 @@ namespace Management.Application.Repositories
     {
         Task<Document> GetDocumentByIdAsync(int documentId);
         Task EditDocumentAsync(Document document);
-        Task DeleteDocument(int documentId);
+        Task DeleteDocumentAsync(int documentId);
     }
 }

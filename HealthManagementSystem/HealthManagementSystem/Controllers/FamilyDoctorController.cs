@@ -17,18 +17,32 @@ namespace HealthManagementSystem.Controllers
         }
 
         [HttpGet("{familyDoctorId}")]
-        public async Task<FamilyDoctor> GetFamilyDoctorById(int familyDoctorId)
+        public async Task<ActionResult<FamilyDoctor>> GetFamilyDoctorById(int familyDoctorId)
         {
-            return await _familyDoctorService.GetFamilyDoctorByIdAsync(familyDoctorId);
+            try
+            {
+                return Ok(await _familyDoctorService.GetFamilyDoctorByIdAsync(familyDoctorId));
+            }
+            catch (Exception error)
+            {
+                return BadRequest(error);
+            }
+            
         }
 
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<ActionResult<FamilyDoctor>> AddFamilyDoctor(FamilyDoctorDto request)
         {
-            await _familyDoctorService.AddFamilyDoctorAsync(request);
-
-            return Ok(request);
+            try
+            {
+                await _familyDoctorService.AddFamilyDoctorAsync(request);
+                return Ok(request);
+            }
+            catch (Exception error)
+            {
+                return BadRequest(error);
+            }
         }
 
         [HttpPut("{familyDoctorId}")]
@@ -36,9 +50,15 @@ namespace HealthManagementSystem.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<FamilyDoctor>> EditFamilyDoctor(int familyDoctorId, FamilyDoctorEditDto request)
         {
-            await _familyDoctorService.EditFamilyDoctorAsync(familyDoctorId, request);
-
-            return Ok(request);
+            try
+            {
+                await _familyDoctorService.EditFamilyDoctorAsync(familyDoctorId, request);
+                return Ok(request);
+            }
+            catch (Exception error)
+            {
+                return BadRequest(error);
+            }
         }
     }
 }

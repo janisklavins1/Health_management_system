@@ -8,7 +8,7 @@ namespace Management.Application.Repositories
         Task AddLabResultAsync(LabResult request);
         Task<LabResult> GetLabResultAsync(int labResultId);
         Task<List<LabResultListDto>> GetLabResultsForPersonAsync(int personId);
-        Task AddDocumentToLabResult(LabResult labResult);
+        Task AddDocumentToLabResultAsync(LabResult labResult);
         Task DeleteLabResultAsync(int labResultId);
     }
 }

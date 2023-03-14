@@ -1,11 +1,6 @@
 ﻿using Management.Application.Repositories;
 using Management.Data.Context;
 using Management.Domain.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Management.Data.Repositories
 {
@@ -19,7 +14,9 @@ namespace Management.Data.Repositories
 
         public async Task AddAddressAsync(Address address)
         {
-            await _context.Addresses.AddAsync(address);
+            _ = await _context.Addresses.AddAsync(address) ??
+                throw new Exception($"Couldn't add Address with ID {address.Id}.");
+
             await _context.SaveChangesAsync();
         }
     }

@@ -15,7 +15,8 @@ namespace Management.Data.Repositories
 
         public async Task<Role> GetRoleByIdAsync(int roleId)
         {
-            return await _context.Roles.FirstAsync(x => x.RoleId == roleId);
+            return await _context.Roles.FirstAsync(x => x.RoleId == roleId) ??
+                 throw new Exception($"Role with Id {roleId} not found.");
         }
     }
 }

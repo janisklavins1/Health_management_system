@@ -15,7 +15,7 @@ namespace Management.Application.Services
 
         public async Task DeleteDocumentAsync(int documentId)
         {
-           await _documentRepository.DeleteDocument(documentId);
+           await _documentRepository.DeleteDocumentAsync(documentId);
         }
 
         public async Task EditDocumentAsync(int documentId, DocumentEditDto request)

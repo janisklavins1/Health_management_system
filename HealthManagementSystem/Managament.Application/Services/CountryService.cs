@@ -12,14 +12,14 @@ namespace Management.Application.Services
             _countryRepository = countryRepository;
         }
 
-        public void AddCountry(Country country)
+        public async Task AddCountryAsync(Country country)
         {
-            _countryRepository.AddCountry(country);
+            await _countryRepository.AddCountryAsync(country);
         }
 
-        public List<Country> GetAllCountries()
+        public async Task<List<Country>> GetAllCountriesAsync()
         {
-            return _countryRepository.GetAllCountries();
+            return await _countryRepository.GetAllCountriesAsync();
         }
 
         public async Task<Country> GetCountryByNameAsync(string countryName) 
