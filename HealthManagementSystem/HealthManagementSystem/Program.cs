@@ -69,6 +69,11 @@ builder.Services.AddScoped<ILabResultService, LabResultService>();
 
 builder.Services.AddScoped<ILabResultStatusRepository, LabResultStatusRepository>();
 
+builder.Services.AddScoped<ILabResultStatusLabResultsRepository, LabResultStatusLabResultsRepository>();
+
+builder.Services.AddScoped<IDocumentRepository, DocumentRepository>();
+builder.Services.AddScoped<IDocumentService, DocumentService>();
+
 WebApplication app = builder.Build();
 
 // Configure the HTTP request pipeline.
