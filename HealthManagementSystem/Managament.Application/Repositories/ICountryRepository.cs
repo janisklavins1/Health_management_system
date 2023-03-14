@@ -4,9 +4,9 @@ namespace Management.Application.Repositories
 {
     public interface ICountryRepository
     {
-        List<Country> GetAllCountries();
+        Task<List<Country>> GetAllCountriesAsync();
 
         Task<Country> GetCountryByNameAsync(string countryName);
-        void AddCountry(Country country);
+        Task AddCountryAsync(Country country);
     }
 }

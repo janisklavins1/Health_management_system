@@ -1,5 +1,6 @@
 ﻿using Management.Application.Repositories;
 using Management.Data.Context;
+using Management.Data.Migrations;
 using Management.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,27 +14,32 @@ namespace Management.Data.Repositories
             _context = context;
         }
 
-        public void AddIngredient(Ingredient ingredient)
+        public async Task AddIngredientAsync(Ingredient ingredient)
         {
-            _context.Ingredients.Add(ingredient);
-            _context.SaveChanges();
+            _ = await _context.Ingredients.AddAsync(ingredient) ??
+                throw new Exception($"Couldn't add Ingredient with Name {ingredient.Name}.");
+
+            await _context.SaveChangesAsync();
         }
 
         public async Task<ICollection<Ingredient>> GetAllIngredientsAsync()
         {
-           return await  _context.Ingredients.ToListAsync();
-        }
+            var ingredient =  await _context.Ingredients.ToListAsync();
 
-        public Ingredient GetIngredientByName(string name)
-        {
-            var ingredient = _context.Ingredients.FirstOrDefault(x => x.Name == name);
-
-            if (ingredient != null)
+            if (ingredient.Count <= 0)
             {
-                return ingredient;
+                throw new Exception($"Ingredient not found.");
             }
 
-            return null;
+            return ingredient;
+        }
+
+        public async Task<Ingredient> GetIngredientByNameAsync(string name)
+        {
+            var ingredient = await _context.Ingredients.FirstOrDefaultAsync(x => x.Name == name) ??
+                 throw new Exception($"Ingredient with Name {name} not found.");
+
+            return ingredient;
         }
     }
 }

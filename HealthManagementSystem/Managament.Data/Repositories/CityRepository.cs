@@ -16,7 +16,8 @@ namespace Management.Data.Repositories
 
         public async Task<City> GetCityByNameAsync(string cityName)
         {
-            return await _context.Cities.FirstAsync(x => x.Name == cityName);
+            return await _context.Cities.FirstAsync(x => x.Name == cityName) 
+                ?? throw new Exception($"City with Name {cityName} not found."); ;
         }
     }
 }

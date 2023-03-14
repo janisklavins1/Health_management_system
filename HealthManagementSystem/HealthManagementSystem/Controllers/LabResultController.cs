@@ -37,7 +37,7 @@ namespace HealthManagementSystem.Controllers
         {
             try
             {
-                await _labResultService.AddDocumentToLabResult(labResultId, request);
+                await _labResultService.AddDocumentToLabResultAsync(labResultId, request);
                 return Ok(request);
             }
             catch (Exception error)
@@ -66,7 +66,7 @@ namespace HealthManagementSystem.Controllers
         {
             try
             {
-                return Ok(await _labResultService.GetLabResultsForPerson(personId));
+                return Ok(await _labResultService.GetLabResultsForPersonAsync(personId));
             }
             catch (Exception error)
             {

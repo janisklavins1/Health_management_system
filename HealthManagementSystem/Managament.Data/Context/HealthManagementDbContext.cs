@@ -11,82 +11,11 @@ namespace Management.Data.Context
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            // AllergyPerson
-            //builder.Entity<Person>()
-            //    .HasMany(x => x.Allergies)
-            //    .WithMany(x => x.Persons)
-            //    .UsingEntity<AllergyPerson>();
-
-            //builder.Entity<AllergyPerson>()
-            //    .HasOne(x => x.Allergy)
-            //    .WithOne()
-            //    .OnDelete(DeleteBehavior.NoAction);
-            //builder.Entity<AllergyPerson>()
-            //    .HasOne(x => x.Person)
-            //    .WithOne()
-            //    .OnDelete(DeleteBehavior.NoAction);
-
             // FamilyDoctor
             builder.Entity<FamilyDoctor>()
                 .HasOne(p => p.Person)
                 .WithMany(f => f.FamilyDoctors)
                 .OnDelete(DeleteBehavior.NoAction);
-
-            // IllnessPerson
-            //builder.Entity<Person>()
-            //    .HasMany(x => x.Illnesses)
-            //    .WithMany(x => x.Persons)
-            //    .UsingEntity<IllnessPerson>();
-            //builder.Entity<IllnessPerson>()
-            //    .HasOne(x => x.Illness)
-            //    .WithOne()
-            //    .OnDelete(DeleteBehavior.NoAction);
-            //builder.Entity<IllnessPerson>()
-            //    .HasOne(x => x.Person)
-            //    .WithOne()
-            //    .OnDelete(DeleteBehavior.NoAction);
-
-            // MedicationPersons
-            //builder.Entity<Person>()
-            //    .HasMany(x => x.Medications)
-            //    .WithMany(x => x.Persons)
-            //    .UsingEntity<MedicationPerson>();
-            //builder.Entity<MedicationPerson>()
-            //    .HasOne(x => x.Medication)
-            //    .WithOne()
-            //    .OnDelete(DeleteBehavior.NoAction);
-            //builder.Entity<MedicationPerson>()
-            //    .HasOne(x => x.Person)
-            //    .WithOne()
-            //    .OnDelete(DeleteBehavior.NoAction);
-
-            // VaccinationPerson
-            //builder.Entity<Person>()
-            //    .HasMany(x => x.Vaccinations)
-            //    .WithMany(x => x.Persons)
-            //    .UsingEntity<VaccinationPerson>();
-            //builder.Entity<VaccinationPerson>()
-            //    .HasOne(x => x.Vaccination)
-            //    .WithOne()
-            //    .OnDelete(DeleteBehavior.NoAction);
-            //builder.Entity<VaccinationPerson>()
-            //    .HasOne(x => x.Person)
-            //    .WithOne()
-            //    .OnDelete(DeleteBehavior.NoAction);
-
-            // LabResultStatusLabResult
-            //builder.Entity<LabResult>()
-            //    .HasMany(x => x.LabResultStatuses)
-            //    .WithMany(x => x.LabResults)
-            //    .UsingEntity<LabResultStatusLabResult>();
-            //builder.Entity<LabResultStatusLabResult>()
-            //    .HasOne(x => x.LabResult)
-            //    .WithOne()
-            //    .OnDelete(DeleteBehavior.NoAction);
-            //builder.Entity<LabResultStatusLabResult>()
-            //    .HasOne(x => x.LabResultStatus)
-            //    .WithOne()
-            //    .OnDelete(DeleteBehavior.NoAction);
         }
 
         public DbSet<Country> Countries { get; set; }

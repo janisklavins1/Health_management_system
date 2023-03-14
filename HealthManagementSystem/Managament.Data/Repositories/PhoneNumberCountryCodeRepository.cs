@@ -15,7 +15,8 @@ namespace Management.Data.Repositories
 
         public async Task<PhoneNumberCountryCode> GetPhoneNumberCountryCodeByCodeAsync(string phoneNumberCode)
         {
-            return await _context.PhoneNumberCountryCodes.FirstAsync(x => x.Code == phoneNumberCode);
+            return await _context.PhoneNumberCountryCodes.FirstAsync(x => x.Code == phoneNumberCode) ??
+                 throw new Exception($"PhoneNumberCountryCode {phoneNumberCode} not found.");
         }
     }
 }

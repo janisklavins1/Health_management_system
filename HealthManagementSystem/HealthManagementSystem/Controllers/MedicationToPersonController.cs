@@ -20,15 +20,28 @@ namespace HealthManagementSystem.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<ActionResult<MedicationPerson>> AddMedicationToPerson(MedicationPersonDto request)
         {
-            await _medicationPersonService.AddMedicationToPersonAsync(request);
-
-            return Ok(request);
+            try
+            {
+                await _medicationPersonService.AddMedicationToPersonAsync(request);
+                return Ok(request);
+            }
+            catch (Exception error)
+            {
+                return BadRequest(error);
+            }
         }
 
         [HttpGet("{personId}")]
-        public async Task<List<MedicationPersonListDto>> GetMedicationForPerson(int personId)
+        public async Task<ActionResult<List<MedicationPersonListDto>>> GetMedicationForPerson(int personId)
         {
-            return await _medicationPersonService.GetAllPersonMedicationsAsync(personId);
+            try
+            {
+                return Ok(await _medicationPersonService.GetAllPersonMedicationsAsync(personId));
+            }
+            catch (Exception error)
+            {
+                return BadRequest(error);
+            }
         }
 
         [HttpPut("{medicationPersonId}")]
@@ -36,9 +49,15 @@ namespace HealthManagementSystem.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> EditMedicationForPerson(int medicationPersonId, MedicationPersonEditDto request)
         {
-            await _medicationPersonService.EditMedicationToPersonAsync(medicationPersonId, request);
-
-            return Ok(request);
+            try
+            {
+                await _medicationPersonService.EditMedicationToPersonAsync(medicationPersonId, request);
+                return Ok(request);
+            }
+            catch (Exception error) 
+            {
+                return BadRequest(error);
+            }
         }
     }
 }

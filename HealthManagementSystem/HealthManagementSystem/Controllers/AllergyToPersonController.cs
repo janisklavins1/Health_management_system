@@ -33,6 +33,7 @@ namespace HealthManagementSystem.Controllers
         }
 
         [HttpGet("{personId}")]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<List<AllergyPersonListDto>>> GetAllergyForPerson(int personId)
         {
             try
@@ -41,7 +42,7 @@ namespace HealthManagementSystem.Controllers
             }
             catch (Exception error)
             {
-                return BadRequest(error);
+                return NotFound(error);
             }
         }
 

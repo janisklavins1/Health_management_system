@@ -14,7 +14,7 @@ namespace Management.Data.Repositories
             _context = context;
         }
 
-        public async Task DeleteDocument(int documentId)
+        public async Task DeleteDocumentAsync(int documentId)
         {
             var document = await GetDocumentByIdAsync(documentId);
             _ = _context.Documents.Remove(document) ?? throw new Exception($"Couldn't delete Document with ID {document.DocumentId} .");

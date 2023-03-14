@@ -13,9 +13,9 @@ namespace Management.Application.Services
             _ingredientRepository = ingredientRepository;
         }
 
-        public void AddIngredient(Ingredient ingredient)
+        public async Task AddIngredientAsync(Ingredient ingredient)
         {
-            _ingredientRepository.AddIngredient(ingredient);
+            await _ingredientRepository.AddIngredientAsync(ingredient);
         }
 
         public async Task<ICollection<Ingredient>> GetAllIngredientsAsync()
@@ -23,9 +23,9 @@ namespace Management.Application.Services
             return await _ingredientRepository.GetAllIngredientsAsync();
         }
 
-        public Ingredient GetIngredientByName(string name)
+        public async Task<Ingredient> GetIngredientByNameAsync(string name)
         {
-            return _ingredientRepository.GetIngredientByName(name);
+            return await _ingredientRepository.GetIngredientByNameAsync(name);
         }
     }
 }

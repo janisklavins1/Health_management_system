@@ -36,7 +36,7 @@ namespace Management.Data.Repositories
                 .Include(x => x.Medication)
                     .ThenInclude(o => o.Ingredients)
                 .Where(x => x.PersonId == personId)
-                .Select(x => new MedicationPersonListDto() 
+                .Select(x => new MedicationPersonListDto()
                 {
                     MedicationPersonId = x.MedicationPersonId,
                     Medication = x.Medication,

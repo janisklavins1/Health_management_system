@@ -18,24 +18,46 @@ namespace HealthManagementSystem.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<Person>> GetAllPersons()
+        public async Task<ActionResult<List<Person>>> GetAllPersons()
         {
-            return await _personService.GetAllPersonsAsync();
+            try
+            {
+                return Ok(await _personService.GetAllPersonsAsync());
+            }
+            catch (Exception error)
+            {
+                return BadRequest(error);
+            }
+
         }
 
         [HttpGet("{personId}")]
-        public async Task<Person> GetPersonById(int personId)
+        public async Task<ActionResult<Person>> GetPersonById(int personId)
         {
-            return await _personService.GetPersonByIdAsync(personId);
+            try
+            {
+                return Ok(await _personService.GetPersonByIdAsync(personId));
+            }
+            catch (Exception error)
+            {
+                return BadRequest(error);
+            }
+
         }
 
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<ActionResult<Person>> AddPerson(PersonDto request)
         {
-            await _personService.AddPersonAsync(request);
-
-            return Ok(request.Name);
+            try
+            {
+                await _personService.AddPersonAsync(request);
+                return Ok(request);
+            }
+            catch (Exception error)
+            {
+                return BadRequest(error);
+            }
         }
 
         [HttpPut("{personId}")]
@@ -43,9 +65,15 @@ namespace HealthManagementSystem.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<Person>> EditPerson(int personId, PersonEditDto request)
         {
-            await _personService.EditPersonAsync(personId, request);
-
-            return Ok(request);
+            try
+            {
+                await _personService.EditPersonAsync(personId, request);
+                return Ok(request);
+            }
+            catch (Exception error)
+            {
+                return BadRequest(error);
+            }
         }
 
         [HttpDelete("{personId}")]
@@ -53,9 +81,15 @@ namespace HealthManagementSystem.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> DeletePerson(int personId)
         {
-            await _personService.DeletePersonAsync(personId);
-
-            return Ok(personId);
+            try
+            {
+                await _personService.DeletePersonAsync(personId);
+                return Ok(personId);
+            }
+            catch (Exception error)
+            {
+                return BadRequest(error);
+            }
         }
     }
 }

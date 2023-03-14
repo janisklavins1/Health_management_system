@@ -15,7 +15,9 @@ namespace Management.Data.Repositories
 
         public async Task AddPersonAsync(Person person)
         {
-            await _context.Persons.AddAsync(person);
+            _ = await _context.Persons.AddAsync(person) ??
+                throw new Exception($"Couldn't add Allergy to Person with ID {person.PersonId}.");
+
             await _context.SaveChangesAsync();
         }
 
@@ -30,6 +32,11 @@ namespace Management.Data.Repositories
                 .Include(x => x.Address)
                     .ThenInclude(y => y.City)
                 .ToListAsync();
+
+            if (personList.Count <= 0)
+            {
+                throw new Exception($"No Person was found.");
+            }
 
             return personList;
         }

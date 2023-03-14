@@ -23,7 +23,7 @@ namespace Management.Application.Services
 
         public async Task AddMedicationToPersonAsync(MedicationPersonDto request)
         {
-            var medication = await _medicationRepository.GetMedication(request.MedicationId);
+            var medication = await _medicationRepository.GetMedicationAsync(request.MedicationId);
             var person = await _personRepository.GetPersonByIdAsync(request.PersonId);
 
             var medicationPerson = new MedicationPerson()
@@ -41,7 +41,7 @@ namespace Management.Application.Services
         public async Task EditMedicationToPersonAsync(int medicationPersonId, MedicationPersonEditDto request)
         {
             var medicationPerson = await _medicationPersonRepository.GetMedicationPersonByIdAsync(medicationPersonId);
-            var medication = await _medicationRepository.GetMedication(request.MedicationId);
+            var medication = await _medicationRepository.GetMedicationAsync(request.MedicationId);
 
             medicationPerson.Medication = medication;
             medicationPerson.EndingDate = request.EndingDate;
