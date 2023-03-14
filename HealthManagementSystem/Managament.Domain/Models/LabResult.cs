@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace Management.Domain.Models
 {
@@ -25,6 +26,7 @@ namespace Management.Domain.Models
 
         public virtual ICollection<Document> Documents { get; set; }
 
+        [JsonIgnore]
         public virtual ICollection<LabResultStatus> LabResultStatuses { get; set; }
     }
 }

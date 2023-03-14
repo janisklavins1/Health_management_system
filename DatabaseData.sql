@@ -68,6 +68,13 @@ VALUES
 VALUES 
 ('+371')
 
+         INSERT INTO [HealthManagement_V2].[dbo].[LabResultStatuses] (Name)
+VALUES 
+('Error'),
+('Processing'),
+('OnHold'),
+('Finished')
+
        INSERT INTO [HealthManagement_V2].[dbo].[PhoneNumbers] (Number, PhoneNumberCountryCodeId)
 VALUES 
 ('26073805', 1)
@@ -78,5 +85,6 @@ VALUES
 
   INSERT INTO [HealthManagement_V2].[dbo].[MedicalPractices] (Name, WebsiteUrl, PhoneNumberId, AddressId)
 VALUES 
-('Sia Ilze Strele', 'www.ilzegimenesarsts.lv', 1, 1)
+('Sia Ilze Strele', 'www.ilzegimenesarsts.lv', 1, 1),
+('Sia Astra', 'www.astra.lv', 1, 1)
 

@@ -75,18 +75,18 @@ namespace Management.Data.Context
             //    .OnDelete(DeleteBehavior.NoAction);
 
             // LabResultStatusLabResult
-            builder.Entity<LabResult>()
-                .HasMany(x => x.LabResultStatuses)
-                .WithMany(x => x.LabResults)
-                .UsingEntity<LabResultStatusLabResult>();
-            builder.Entity<LabResultStatusLabResult>()
-                .HasOne(x => x.LabResult)
-                .WithOne()
-                .OnDelete(DeleteBehavior.NoAction);
-            builder.Entity<LabResultStatusLabResult>()
-                .HasOne(x => x.LabResultStatus)
-                .WithOne()
-                .OnDelete(DeleteBehavior.NoAction);
+            //builder.Entity<LabResult>()
+            //    .HasMany(x => x.LabResultStatuses)
+            //    .WithMany(x => x.LabResults)
+            //    .UsingEntity<LabResultStatusLabResult>();
+            //builder.Entity<LabResultStatusLabResult>()
+            //    .HasOne(x => x.LabResult)
+            //    .WithOne()
+            //    .OnDelete(DeleteBehavior.NoAction);
+            //builder.Entity<LabResultStatusLabResult>()
+            //    .HasOne(x => x.LabResultStatus)
+            //    .WithOne()
+            //    .OnDelete(DeleteBehavior.NoAction);
         }
 
         public DbSet<Country> Countries { get; set; }

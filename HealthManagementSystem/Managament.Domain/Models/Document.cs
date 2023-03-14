@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace Management.Domain.Models
 {
@@ -23,6 +24,7 @@ namespace Management.Domain.Models
 
         public DateTime DateCreated { get; set; }
 
+        [JsonIgnore]
         public virtual ICollection<LabResult> LabResults { get; set; }
     }
 }
