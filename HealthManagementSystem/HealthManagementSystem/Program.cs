@@ -3,13 +3,15 @@ using Management.Application.Repositories;
 using Management.Application.Services;
 using Management.Data.Context;
 using Management.Data.Repositories;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.EntityFrameworkCore;
-using System.Text.Json.Serialization;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Data protection
+builder.Services.AddDataProtection().SetDefaultKeyLifetime(TimeSpan.FromDays(14));
 
+// Add services to the container.
 builder.Services.AddControllers();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

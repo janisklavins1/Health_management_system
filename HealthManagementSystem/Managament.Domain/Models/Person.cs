@@ -11,13 +11,10 @@ namespace Management.Domain.Models
         [JsonIgnore]
         public int PersonId { get; set; }
 
-        [StringLength(100, ErrorMessage = "Name should be max 100 symbols long")]
         public string Name { get; set; } = string.Empty;
 
-        [StringLength(100, ErrorMessage = "Surname should be max 100 symbols long")]
         public string Surname { get; set; } = string.Empty;
 
-        [StringLength(20, ErrorMessage = "Gender should be max 20 symbols long")]
         public string Gender { get; set; } = string.Empty;
 
         public DateTime BirthDate { get; set; }
