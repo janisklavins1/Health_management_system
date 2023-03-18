@@ -108,7 +108,7 @@ namespace Management.Test.Controllers
         public async Task EditFamilyDoctor_WithValidFamilyDoctorId_ReturnsOkObjectResult()
         {
             // Arrange
-            int familyDoctorId = Faker.RandomNumber.Next();
+            var familyDoctorId = Faker.RandomNumber.Next();
             var request = new FamilyDoctorEditDto()
             {
                 MedicalPracticeId = Faker.RandomNumber.Next(),
@@ -131,7 +131,7 @@ namespace Management.Test.Controllers
         public async Task EditFamilyDoctor_WithInvalidValidFamilyDoctorId_ReturnsNotFoundResult()
         {
             // Arrange
-            int familyDoctorId = -1;
+            var familyDoctorId = -1;
             var request = new FamilyDoctorEditDto()
             {
                 MedicalPracticeId = Faker.RandomNumber.Next(),

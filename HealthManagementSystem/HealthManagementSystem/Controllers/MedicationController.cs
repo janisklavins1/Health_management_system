@@ -9,12 +9,10 @@ namespace HealthManagementSystem.Controllers
     [ApiController]
     public class MedicationController : ControllerBase
     {
-        private readonly IIngredientService _ingredientService;
         private readonly IMedicationService _medicationService;
 
-        public MedicationController(IIngredientService ingredientService, IMedicationService medicationService)
+        public MedicationController(IMedicationService medicationService)
         {
-            _ingredientService = ingredientService;
             _medicationService = medicationService;
         }
 
@@ -50,11 +48,11 @@ namespace HealthManagementSystem.Controllers
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<Medication>> EditMedication(int id, MedicationDto request)
+        public async Task<ActionResult<Medication>> EditMedication(int medicationId, MedicationDto request)
         {
             try
             {
-                await _medicationService.EditMedicationAsync(id, request);
+                await _medicationService.EditMedicationAsync(medicationId, request);
                 return Ok(request);
             }
             catch (Exception error)
