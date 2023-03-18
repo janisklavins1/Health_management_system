@@ -14,8 +14,13 @@ namespace Management.Application.Helpers
 
         public Person Protect(Person request)
         {
-            if (request.PersonId == 0)
+            if (request.PersonId == 0) // New Person
             {
+                request.Address.HouseAddress = _dataProtector.Protect(request.Address.HouseAddress);
+                request.Address.PostIndex = _dataProtector.Protect(request.Address.PostIndex);
+
+                request.PhoneNumber.Number = _dataProtector.Protect(request.PhoneNumber.Number);
+
                 return new Person()
                 {
                     Name = _dataProtector.Protect(request.Name),
@@ -27,10 +32,13 @@ namespace Management.Application.Helpers
                     Role = request.Role
                 };
             }
-            else // If object is already saved in DB - for editing
+            else // Edited Person
             {
                 request.Name = _dataProtector.Protect(request.Name);
                 request.Surname = _dataProtector.Protect(request.Surname);
+                request.Address.HouseAddress = _dataProtector.Protect(request.Address.HouseAddress);
+                request.Address.PostIndex = _dataProtector.Protect(request.Address.PostIndex);
+                request.PhoneNumber.Number = _dataProtector.Protect(request.PhoneNumber.Number);
 
                 return request;
             }

@@ -1,5 +1,6 @@
 ﻿using Management.Domain.Models;
 using Microsoft.AspNetCore.DataProtection;
+using System.Net;
 
 namespace Management.Application.Helpers
 {
@@ -17,6 +18,9 @@ namespace Management.Application.Helpers
             request.Name = _dataProtector.Unprotect(request.Name);
             request.Surname = _dataProtector.Unprotect(request.Surname);
             request.Gender = _dataProtector.Unprotect(request.Gender);
+            request.Address.HouseAddress = _dataProtector.Unprotect(request.Address.HouseAddress);
+            request.Address.PostIndex = _dataProtector.Unprotect(request.Address.PostIndex);
+            request.PhoneNumber.Number = _dataProtector.Unprotect(request.PhoneNumber.Number);
 
             return request;
         }

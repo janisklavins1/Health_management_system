@@ -141,8 +141,7 @@ namespace Management.Data.Migrations
 
                     b.Property<string>("PostIndex")
                         .IsRequired()
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
