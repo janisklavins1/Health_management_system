@@ -27,7 +27,6 @@ namespace Management.Domain.Models
 
         public string HouseAddress { get; set; } = string.Empty;
 
-        [StringLength(10, ErrorMessage = "Max length is 10 symbols")]
         public string PostIndex { get; set; } = string.Empty;
 
         [JsonIgnore]
