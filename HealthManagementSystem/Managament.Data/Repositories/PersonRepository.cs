@@ -8,6 +8,7 @@ namespace Management.Data.Repositories
     public class PersonRepository : IPersonRepository
     {
         private readonly HealthManagementDbContext _context;
+
         public PersonRepository(HealthManagementDbContext context)
         {
             _context = context;

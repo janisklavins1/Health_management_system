@@ -1,9 +1,12 @@
 ﻿using HealthManagementSystem.Dto;
 using Management.Application.Dto;
 using Management.Application.Enums;
+using Management.Application.Helpers;
 using Management.Application.Interfaces;
 using Management.Application.Repositories;
 using Management.Domain.Models;
+using Microsoft.AspNetCore.DataProtection;
+using System;
 
 namespace Management.Application.Services
 {
@@ -14,19 +17,27 @@ namespace Management.Application.Services
         private readonly ICityRepository _cityRepository;
         private readonly IPhoneNumberCountryCodeRepository _phoneNumberCountryCodeRepository;
         private readonly IRoleRepository _roleRepository;
+        private readonly Encryption _encryption;
+        private readonly Dencryption _dencryption;
+        private readonly IDataProtector _dataProtector;
 
         public PersonService(
             IPersonRepository personService,
             ICountryRepository countryRepository,
             ICityRepository cityRepository,
             IPhoneNumberCountryCodeRepository phoneNumberCountryCodeRepository,
-            IRoleRepository roleRepository)
+            IRoleRepository roleRepository,
+            IDataProtectionProvider provider)
         {
             _personRepository = personService;
             _countryRepository = countryRepository;
             _cityRepository = cityRepository;
             _phoneNumberCountryCodeRepository = phoneNumberCountryCodeRepository;
             _roleRepository = roleRepository;
+
+            _dataProtector = provider.CreateProtector(GetType().FullName);
+            _encryption = new Encryption(_dataProtector);
+            _dencryption = new Dencryption(_dataProtector);
         }
 
         public async Task AddPersonAsync(PersonDto request)
@@ -35,6 +46,7 @@ namespace Management.Application.Services
             var city = await _cityRepository.GetCityByNameAsync(request.City);
             var phoneNumberCode = await _phoneNumberCountryCodeRepository.GetPhoneNumberCountryCodeByCodeAsync(request.PhoneNumberCountryCode);
             var role = await _roleRepository.GetRoleByIdAsync((int)RoleEnum.Patient);
+
 
             var person = new Person()
             {
@@ -57,7 +69,7 @@ namespace Management.Application.Services
                 Role = role
             };
 
-            await _personRepository.AddPersonAsync(person);
+            await _personRepository.AddPersonAsync(_encryption.Protect(person));
         }
 
         public async Task DeletePersonAsync(int personId)
@@ -88,17 +100,21 @@ namespace Management.Application.Services
                 PhoneNumberCountryCode = phoneNumberCode
             };
 
-            await _personRepository.EditPersonAsync(person);
+            await _personRepository.EditPersonAsync(_encryption.Protect(person));
         }
 
         public async Task<ICollection<Person>> GetAllPersonsAsync()
         {
-            return await _personRepository.GetAllPersonsAsync();
+            var personList = await _personRepository.GetAllPersonsAsync();
+
+            return _dencryption.UnProtect(personList);
         }
 
         public async Task<Person> GetPersonByIdAsync(int id)
         {
-            return await _personRepository.GetPersonByIdAsync(id);
+            var person = await _personRepository.GetPersonByIdAsync(id);
+
+            return _dencryption.UnProtect(person);
         }
     }
 }
